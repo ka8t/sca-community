@@ -27,24 +27,48 @@ rule <id>                            # [a-z0-9_]+, must match the filename
   language  <python|java|javascript|csharp|php|html|dockerfile|yaml>
   category  <security|maintenance|ui|ux|arch|cicd>
   severity  <CRITICAL|HIGH|MEDIUM|LOW|INFO>
-  confidence <0-100>                 # optional, default 100
+  confidence <0-100>                 # optional, default 80
 
   # ─── exactly one mode ↓ ───
-  match … end                        # pattern mode
+  match                               # pattern mode (regex by default)
+    pattern  <regex>
+    scope    line|file
+  end
+  match file_contains                 # file_contains mode — a match VARIANT,
+    has      <regex>                  # not a separate top-level block
+    not_has  <regex>
+  end
   source / sink / sanitizer / passthrough   # taint mode (>=1 source, >=1 sink)
-  file_contains … end                # file_contains mode
 
-  requires                           # optional gating
+  requires                           # optional gating (file condition kind)
     has  <regex>
     not_has  <regex>
   end
 
-  message  en: …  fr: …  end          # i18n required (English minimum)
-  risk     en: …  end
-  solution en: …  end
-  benefit  en: …  end
-  fix_before  …  end                 # vulnerable code example
-  fix_after   …  end                 # fixed code example
+  # Each i18n block below is OPTIONAL, and each language line inside it is
+  # independently optional too — `message` is commonly omitted entirely in
+  # shipped rules; `risk`/`solution`/`benefit` typically carry all 4
+  # languages, but nothing enforces that at parse time. One language code
+  # per line — the compact single-line form does not parse.
+  message
+    en: …
+    fr: …
+  end
+  risk
+    en: …
+  end
+  solution
+    en: …
+  end
+  benefit
+    en: …
+  end
+  fix_before                         # vulnerable code example (no i18n)
+    …
+  end
+  fix_after                          # fixed code example (no i18n)
+    …
+  end
   metadata
     cwe   CWE-N
   end
@@ -157,15 +181,27 @@ that isn't a string literal (a lightweight signal, not the full taint
        pattern  eval\s*\(\s*(?!['"])
        scope    line
      end
-     message  en: "eval() called with a non-literal argument" end
-     risk     en: "Arbitrary code execution if the argument is influenced by user input." end
-     solution en: "Avoid eval(); use ast.literal_eval() for data, or a dedicated parser." end
-     benefit  en: "Removes a common code-injection vector." end
+     message
+       en: eval() called with a non-literal argument
+     end
+     risk
+       en: Arbitrary code execution if the argument is influenced by user input.
+     end
+     solution
+       en: Avoid eval(); use ast.literal_eval() for data, or a dedicated parser.
+     end
+     benefit
+       en: Removes a common code-injection vector.
+     end
      metadata
        cwe CWE-95
      end
    end
    ```
+   (Each i18n block — `message`/`risk`/`solution`/`benefit` — takes one
+   language code per line; the parser does not support them on a single
+   line. `message` is optional and frequently omitted in shipped rules;
+   when present, English alone is enough — nothing enforces the other 3.)
 2. Add the same 4 keys (`en`/`fr`/`es`/`de`) to
    `locales/report/*.json` under `rules.eval_non_literal`.
 3. `tests/fixtures/generic/vulnerable/eval_non_literal.py` (a call
