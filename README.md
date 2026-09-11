@@ -55,8 +55,16 @@ a deliberately small, representative slice. The commercial engine adds:
   without the tracking).
 - **~650 additional rules** across all languages and categories
   (security, CI/CD supply-chain, architecture, accessibility).
-- Compliance mapping (ISO 27001, ASVS, NIST CSF), historical comparison,
-  and SBOM/enterprise export formats.
+- **Full** compliance mapping (ISO 27001, ASVS, NIST CSF) across all
+  ~650 rules. This edition ships compliance data only for the subset of
+  its 52 rules that have a mapped control (`sca/*_mapping.json`) —
+  partial by construction, not a bug.
+
+There is no license or feature-gating system in this edition (see
+[ARCHITECTURE.md](ARCHITECTURE.md)) — SARIF/SBOM export, the HTML
+report, and historical comparison against a previous run all work
+exactly as in the commercial product. The only differences are the
+rule catalog and language coverage above.
 
 **Measured results, two different things — read the attribution
 carefully:**

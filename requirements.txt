@@ -1,25 +1,16 @@
-# Audit Tool - Minimal dependencies
-# Most functionality uses Python standard library only
+# StaticCodeAudit Community Edition — dependencies
+# Everything works with the Python standard library alone. Both extras
+# below are optional and degrade gracefully when absent.
 
-# Optional: PostgreSQL schema audit (recommended)
+# Optional: PostgreSQL schema audit.
 # Install with: pip install psycopg2-binary
+# Falls back to the `psql` CLI (if installed on the system) when absent.
 # psycopg2-binary>=2.9.0
 
-# If psycopg2 is not installed, the tool will fallback to using psql CLI
-# which requires PostgreSQL client tools to be installed on the system
-
-# AuditAi (integration SCA, cf. AuditAi/docs/CONSTRAINTS.md C9) : verification
-# de signature Ed25519 des regles generees par AuditAi et du manifest de son
-# module externe (sca/sign.py). NOUVELLE dependance runtime - a valider cote
-# AuditDistrib/Nuitka avant release (empaquetage d'une extension compilee
-# dans le binaire) ; a signaler explicitement a Karim (cf. rapport de tache).
-cryptography>=42.0.0
-
-# Moteur dataflow Java (sca/dataflow/java_*.py, sca/treesitter_engine.py) :
-# parsing AST via tree-sitter, actif par defaut depuis la fusion des deux
-# moteurs Java (2026-07-28, cf. internal docs). Import conditionnel au runtime
-# (degradation gracieuse vers le lexical seul si absent) mais desormais
-# requis pour beneficier du moteur multi-fichiers en production - doit etre
-# empaquete cote AuditDistrib/Nuitka (pipeline/compile.py).
-tree-sitter==0.25.2
-tree-sitter-java==0.23.5
+# Optional: signature verification for a custom rule carrying AuditAi
+# provenance metadata (see sca/sign.py — public-key verification only).
+# Only exercised if a custom rule declares a `signature` field in its
+# metadata; everything else (including every builtin rule) works without
+# it, and it is silently skipped when the library is absent.
+# Install with: pip install cryptography
+# cryptography>=42.0.0

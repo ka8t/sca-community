@@ -34,9 +34,12 @@ won't be merged.
 python -m pytest tests/ -v
 ```
 
-Functional (end-to-end) tests live in `tests/test_functional.py`. A
-change to rule-loading, report generation, or the CLI should come with a
-functional test, not just a unit test.
+`tests/conftest.py` provides the fixture-loading helpers
+(`use_vulnerable_fixture`, `get_findings_by_rule_key`, per-language
+`AuditRunner` fixtures) and `tests/registry.py` the fixture ↔ rule
+mapping — see
+[USER-GUIDE.md](USER-GUIDE.md#adding-a-rule--worked-example) for a
+worked example. Add a `tests/test_*.py` file alongside any new rule.
 
 ## Pull requests
 

@@ -90,8 +90,8 @@ into the rule engine via `sca/executors/dataflow_adapter.py`.
 | `--demo` | Generates an anonymized HTML report alongside the full one |
 | `--lang fr\|en\|es\|de` | Report language |
 | `--list-rules` | Lists every loaded rule |
-| `--self-test` | Validates the fixture suite |
-| `--benchmark` | Measures precision/recall/F1 on the fixture suite |
+| `--rules-match` | Checks every rule has matching fixtures (vulnerable + clean) |
+| `--check-integrity` | Detects duplicate/orphan fixtures and rule_id collisions |
 
 Full list: `./run_audit.py --help`.
 

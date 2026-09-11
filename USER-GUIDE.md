@@ -172,5 +172,13 @@ that isn't a string literal (a lightweight signal, not the full taint
    matching the pattern) and
    `tests/fixtures/generic/clean/eval_non_literal_clean.py` (a call that
    doesn't, e.g. `eval("2+2")`).
-4. A test in `tests/test_security_rules.py` using
-   `get_findings_by_rule_key(runner, "eval_non_literal")`.
+4. A test in a new `tests/test_*.py` file, using the helpers and
+   `audit_runner`/`temp_project` fixtures from `tests/conftest.py`:
+   ```python
+   from tests.conftest import use_vulnerable_fixture, get_findings_by_rule_key
+
+   def test_eval_non_literal(temp_project, audit_runner):
+       use_vulnerable_fixture(temp_project, "eval_non_literal.py", "src/service.py")
+       audit_runner.run()
+       assert get_findings_by_rule_key(audit_runner, "eval_non_literal")
+   ```

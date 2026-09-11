@@ -21,12 +21,14 @@ product, just scoped to Python.
 - **~650 additional rules** beyond the 52 shipped here — broader
   coverage across CWE categories, CI/CD supply-chain attacks, and
   framework-specific patterns.
-- **Compliance mapping** (ISO 27001, ASVS, NIST CSF) and the historical
-  comparison / SBOM / SARIF export pipeline used in enterprise
-  workflows.
+- **Full compliance mapping** (ISO 27001, ASVS, NIST CSF) across the
+  full ~650-rule catalog — this edition ships mapping data only for the
+  subset of its 52 rules that have one.
 
 None of this is artificially disabled in the code you're reading — it
-simply isn't present. There's no license check to work around.
+simply isn't present. There's no license check to work around: SARIF
+export, SBOM export, and historical comparison against a previous run
+are not commercial features — they work identically in both editions.
 
 ## What could be added to this edition over time
 
