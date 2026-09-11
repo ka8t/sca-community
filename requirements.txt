@@ -7,8 +7,9 @@
 # Falls back to the `psql` CLI (if installed on the system) when absent.
 # psycopg2-binary>=2.9.0
 
-# Optional: signature verification for a custom rule carrying AuditAi
-# provenance metadata (see sca/sign.py — public-key verification only).
+# Optional: signature verification for a custom rule carrying
+# externally-generated provenance metadata (see sca/sign.py —
+# public-key verification only).
 # Only exercised if a custom rule declares a `signature` field in its
 # metadata; everything else (including every builtin rule) works without
 # it, and it is silently skipped when the library is absent.

@@ -325,7 +325,7 @@ class FlowStep:
 
 @dataclass(frozen=True)
 class Finding:
-    """A reported taint finding, conforming to CONTRACT-SCA-AUDITAI.md §3.2."""
+    """A reported taint finding, conforming to the internal rule-generation contract doc §3.2."""
     rule_id: str
     severity: str
     line: int

@@ -1,7 +1,7 @@
 """Bridge between the SCA `.sca` DSL and the dataflow engine.
 
 Clean-room implementation based on sca/docs/dataflow-spec.md §10
-and CONTRACT-SCA-AUDITAI.md §3.1.
+and the internal rule-generation contract doc §3.1.
 
 No semgrep OCaml source was read to write this module.
 
@@ -111,7 +111,7 @@ def run_taint_rule(
 ) -> Iterable[Finding]:
     """Run a single SCA taint rule against source content.
 
-    Conforms to CONTRACT-SCA-AUDITAI.md §3.1.
+    Conforms to the internal rule-generation contract doc §3.1.
 
     Args:
         rule_json: compiled SCA rule (internal format with `mode`,

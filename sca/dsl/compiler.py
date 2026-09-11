@@ -71,14 +71,14 @@ def compile_to_json(node: RuleNode) -> dict:
         meta["asvs"] = list(node.metadata.asvs)
     if node.metadata.wcag:
         meta["wcag"] = list(node.metadata.wcag)
-    # AuditAi provenance (see CONSTRAINTS.md C9) — empty for any builtin
+    # the rule-generation extension provenance (see CONSTRAINTS.md C9) — empty for any builtin
     # or manually written custom rule.
     if node.metadata.generated_by:
         meta["generated_by"] = node.metadata.generated_by
     if node.metadata.generated_at:
         meta["generated_at"] = node.metadata.generated_at
-    if node.metadata.auditai_version:
-        meta["auditai_version"] = node.metadata.auditai_version
+    if node.metadata.generator_version:
+        meta["generator_version"] = node.metadata.generator_version
     if node.metadata.manifest_hash:
         meta["manifest_hash"] = node.metadata.manifest_hash
     if node.metadata.org_id:

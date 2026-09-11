@@ -505,8 +505,8 @@ class DSLParser:
                 block.generated_by = self._parse_value()
             elif kw == "generated_at":
                 block.generated_at = self._parse_value()
-            elif kw == "auditai_version":
-                block.auditai_version = self._parse_value()
+            elif kw == "generator_version":
+                block.generator_version = self._parse_value()
             elif kw == "manifest_hash":
                 block.manifest_hash = self._parse_value()
             elif kw == "org_id":

@@ -839,7 +839,7 @@ class AuditRuleEngineMixin:
         sanitizers of the detected framework profile, runs `run_taint_rule`
         and integrates the resulting TaintFlow like the historical pipeline.
 
-        Spec §10 + CONTRACT-SCA-AUDITAI.md §3.1.
+        Spec §10 + the internal rule-generation contract doc §3.1.
         """
         from dataclasses import asdict
         from sca.executors.dataflow_adapter import (

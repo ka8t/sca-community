@@ -4,7 +4,7 @@ Converts Finding objects (contract §3.2) into TaintFlow (SCA internal format).
 Since the removal of the legacy taint_engine.py, dataflow is the only taint
 backend and this adapter is always active.
 
-Spec §10 and CONTRACT-SCA-AUDITAI.md §3.
+Spec §10 and the internal rule-generation contract doc §3.
 """
 from __future__ import annotations
 
