@@ -20,9 +20,8 @@ repository is the free, source-available edition of that engine — see
 [Community Edition vs. full engine](#community-edition-vs-full-engine)
 below for exactly what's included and what isn't, and why.
 
-Licensed under the [Business Source License 1.1](LICENSE) — free for any
-use, including production, except offering it as a competing hosted
-service. Converts to Apache 2.0 four years after each release.
+Licensed under the [Business Source License 1.1](LICENSE) — see
+[License](#license) below for the exact terms.
 
 ## Quickstart
 
@@ -83,8 +82,8 @@ carefully:**
 
 ## Adding a rule
 
-See [ARCHITECTURE.md](ARCHITECTURE.md#adding-a-rule) and
-[USER-GUIDE.md](USER-GUIDE.md#adding-a-rule--worked-example).
+See [USER-GUIDE.md](USER-GUIDE.md#adding-a-rule--worked-example) for
+a worked example, end to end.
 
 ## Known limitations (read before relying on this for security review)
 

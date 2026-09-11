@@ -51,7 +51,9 @@ matching styles:
   SQL query) across the function.
 
 Every rule also carries `risk`/`solution`/`benefit` text in 4 languages
-(en/fr/es/de) and a `metadata` block with at least one CWE id.
+(en/fr/es/de) and a `metadata` block with at least one CWE id. To add
+a new rule, see the worked example in
+[USER-GUIDE.md](USER-GUIDE.md#adding-a-rule--worked-example).
 
 ## The Python taint engine
 
@@ -94,17 +96,6 @@ into the rule engine via `sca/executors/dataflow_adapter.py`.
 | `--check-integrity` | Detects duplicate/orphan fixtures and rule_id collisions |
 
 Full list: `./run_audit.py --help`.
-
-## Adding a rule
-
-1. Create a `.sca` file in `sca/rules/builtin/{language}/{category}/`.
-2. Add the corresponding key in the 4 `locales/report/{fr,en,es,de}.json`
-   files.
-3. Add a vulnerable + a clean fixture in `tests/fixtures/generic/`
-   (convention: `{rule_id}.ext` / `{rule_id}_clean.ext`).
-4. Add a test in `tests/test_*_rules.py`.
-5. The `metadata` block must carry at least one `cwe` (security/quality
-   rules) or `wcag` (accessibility rules) entry.
 
 ## Output formats
 

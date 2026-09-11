@@ -15,11 +15,11 @@ proprietary code into a public issue.
 
 ## Adding a rule
 
-See [ARCHITECTURE.md](ARCHITECTURE.md#adding-a-rule) for the exact
-steps. In short: a `.sca` file, a vulnerable + a clean fixture, a test,
-and a `metadata` block with at least one CWE id. Every rule needs both
-fixtures — a rule without a demonstrated false-positive-free clean case
-won't be merged.
+See [USER-GUIDE.md](USER-GUIDE.md#adding-a-rule--worked-example) for
+the exact steps, worked through end to end. In short: a `.sca` file, a
+vulnerable + a clean fixture, a test, and a `metadata` block with at
+least one CWE id. Every rule needs both fixtures — a rule without a
+demonstrated false-positive-free clean case won't be merged.
 
 ## Code style
 
