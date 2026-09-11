@@ -1,0 +1,38 @@
+rule insecure_cookie
+  language  php
+  category  security
+  severity  MEDIUM
+  match
+    pattern  setcookie\s*\(
+    scope    line
+    pattern-not  (?=.*(?i:['"]secure['"]\s*=>\s*true))(?=.*(?i:['"]httponly['"]\s*=>\s*true))
+  end
+  metadata
+    cwe    CWE-614
+  end
+  risk
+    en: Cookies without HttpOnly are accessible via JavaScript (XSS). Without Secure, they are sent over unencrypted HTTP (CWE-614, OWASP A05).
+    fr: Les cookies sans HttpOnly sont accessibles via JavaScript (XSS). Sans Secure, ils sont transmis en HTTP non chiffre (CWE-614, OWASP A05).
+    es: Las cookies sin HttpOnly son accesibles via JavaScript (XSS). Sin Secure se envian por HTTP no cifrado (CWE-614, OWASP A05).
+    de: Cookies ohne HttpOnly sind per JavaScript zugaenglich (XSS). Ohne Secure werden sie ueber unverschluesseltes HTTP gesendet (CWE-614, OWASP A05).
+  end
+  solution
+    en: Always set HttpOnly=True and Secure=True on session and authentication cookies.
+    fr: Toujours definir HttpOnly=True et Secure=True sur les cookies de session et d'authentification.
+    es: Siempre definir HttpOnly=True y Secure=True en cookies de sesion y autenticacion.
+    de: Immer HttpOnly=True und Secure=True fuer Session- und Authentifizierungs-Cookies setzen.
+  end
+  benefit
+    en: Reduces attack surface and strengthens application security.
+    fr: Reduit la surface d'attaque et renforce la securite de l'application.
+    es: Reduce la superficie de ataque y refuerza la seguridad de la aplicacion.
+    de: Reduziert die Angriffsflaeche und staerkt die Anwendungssicherheit.
+  end
+  fix_before
+    setcookie("sid", $val);
+  end
+  fix_after
+    <?php
+    setcookie('session', $value, ['httponly' => true, 'secure' => true, 'samesite' => 'Lax']);
+  end
+end

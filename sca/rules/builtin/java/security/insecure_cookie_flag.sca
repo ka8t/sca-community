@@ -1,0 +1,37 @@
+rule insecure_cookie_flag
+  language  java
+  category  security
+  severity  MEDIUM
+  match
+    pattern  \.setSecure\s*\(\s*false\s*\)
+    scope    line
+  end
+  metadata
+    cwe    CWE-614
+  end
+  risk
+    en: Cookie with Secure flag set to false is transmitted over unencrypted HTTP connections (CWE-614).
+    fr: Cookie avec flag Secure a false est transmis sur des connexions HTTP non chiffrees (CWE-614).
+    es: Cookie con flag Secure en false se transmite por conexiones HTTP no cifradas (CWE-614).
+    de: Cookie mit Secure-Flag auf false wird ueber unverschluesselte HTTP-Verbindungen uebertragen (CWE-614).
+  end
+  solution
+    en: Set cookie.setSecure(true) to ensure cookies are only sent over HTTPS.
+    fr: Definir cookie.setSecure(true) pour que les cookies ne soient envoyes qu'en HTTPS.
+    es: Establecer cookie.setSecure(true) para que las cookies solo se envien por HTTPS.
+    de: cookie.setSecure(true) setzen damit Cookies nur ueber HTTPS gesendet werden.
+  end
+  benefit
+    en: Reduces attack surface and strengthens application security.
+    fr: Reduit la surface d'attaque et renforce la securite de l'application.
+    es: Reduce la superficie de ataque y refuerza la seguridad de la aplicacion.
+    de: Reduziert die Angriffsflaeche und staerkt die Anwendungssicherheit.
+  end
+  fix_before
+    cookie.setSecure(false);
+  end
+  fix_after
+    cookie.setSecure(true);
+    cookie.setHttpOnly(true);
+  end
+end

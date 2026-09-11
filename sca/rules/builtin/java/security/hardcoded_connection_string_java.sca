@@ -1,0 +1,39 @@
+rule hardcoded_connection_string_java
+  language  java
+  severity  HIGH
+  category  security
+  confidence 85
+  match
+    pattern  DriverManager\.getConnection\s*\([^,)]*,[^,)]*,\s*["'][^'"]{4,}["']|jdbc:[^'"@\n]{3,50}:[^'"@\n]{1,30}@
+    scope    line
+  end
+  metadata
+    cwe    CWE-798
+  end
+  risk
+    en: A JDBC connection uses a hardcoded password literal or a URL with embedded credentials. Credentials hardcoded in source code appear in version control history and can be extracted by anyone with repository access (CWE-798).
+    fr: Une connexion JDBC utilise un mot de passe littéral codé en dur ou une URL avec des credentials intégrés. Les credentials codés en dur dans le code source apparaissent dans l'historique du contrôle de version et peuvent être extraits par quiconque ayant accès au dépôt (CWE-798).
+    es: Una conexión JDBC usa una contraseña literal codificada o una URL con credenciales integradas. Las credenciales en el código fuente aparecen en el historial de control de versiones (CWE-798).
+    de: Eine JDBC-Verbindung verwendet ein hartkodiertes Passwort-Literal oder eine URL mit eingebetteten Zugangsdaten. Im Quellcode hartkodierte Zugangsdaten erscheinen in der Versionskontrollhistorie (CWE-798).
+  end
+  solution
+    en: Read database credentials from environment variables or a secrets manager: String url = System.getenv("DB_URL"); String pass = System.getenv("DB_PASSWORD"); In Spring Boot, use application.properties with ${DB_PASSWORD} placeholder backed by environment variables or Vault.
+    fr: Lire les credentials de base de données depuis des variables d'environnement ou un gestionnaire de secrets : String url = System.getenv("DB_URL"); String pass = System.getenv("DB_PASSWORD"); Dans Spring Boot, utiliser application.properties avec le placeholder ${DB_PASSWORD} soutenu par des variables d'environnement ou Vault.
+    es: Leer credenciales desde variables de entorno o un gestor de secretos: System.getenv("DB_URL"), System.getenv("DB_PASSWORD"). En Spring Boot, usar application.properties con placeholder ${DB_PASSWORD}.
+    de: Datenbank-Zugangsdaten aus Umgebungsvariablen oder einem Secrets-Manager lesen: System.getenv("DB_URL"), System.getenv("DB_PASSWORD"). In Spring Boot: application.properties mit ${DB_PASSWORD} Platzhalter.
+  end
+  benefit
+    en: Prevents database credential exposure via source code and version control history.
+    fr: Empêche l'exposition des credentials de base de données via le code source et l'historique du contrôle de version.
+    es: Previene la exposición de credenciales de base de datos mediante el código fuente y el historial de control de versiones.
+    de: Verhindert Datenbank-Credential-Exposition über den Quellcode und die Versionskontrollhistorie.
+  end
+  fix_before
+    Connection conn = DriverManager.getConnection("jdbc:mysql://db/app", "root", "secret123");
+  end
+  fix_after
+    String url = System.getenv("DB_URL");
+    String password = System.getenv("DB_PASSWORD");
+    Connection conn = DriverManager.getConnection(url, "app_service", password);
+  end
+end

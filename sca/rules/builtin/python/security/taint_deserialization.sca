@@ -1,0 +1,106 @@
+rule taint_deserialization
+  language  python
+  category  security
+  severity  HIGH
+  confidence 90
+  source  request\.(GET|POST|args|form|json|data|query_params|body|cookies|headers)  kind=http
+  source  sys\.stdin  kind=stdin
+  source  socket\.recv  kind=network
+  source  request\.query_string  kind=http
+  source  request\.cookies  kind=http
+  source  request\.url  kind=http
+  source  request\.path  kind=http
+  source  request\.remote_addr  kind=http
+  source  request\.user_agent  kind=http
+  source  request\.referrer  kind=http
+  source  request\.content_type  kind=http
+  source  request\.get_json\s*\(  kind=http
+  source  request\.values  kind=http
+  source  request\.cookies\.get\s*\(  kind=http
+  source  request\.cookies\[  kind=http
+  source  request\.form\.getlist\s*\(  kind=http
+  source  request\.args\.getlist\s*\(  kind=http
+  source  wrapped\.get_form_parameter\s*\(  kind=http
+  source  wrapped\.get_query_parameter\s*\(  kind=http
+  source  wrapped\.get_cookie\s*\(  kind=http
+  source  wrapped\.get_header\s*\(  kind=http
+  source  helpers\.utils\.get_parameter\s*\(  kind=http
+  source  helpers\.utils\.get_parameter_list\s*\(  kind=http
+  sink    pickle\.loads\s*\(
+  sink    pickle\.load\s*\(
+  sink    yaml\.load\s*\(
+  sink    yaml\.unsafe_load\s*\(
+  sink    marshal\.loads\s*\(
+  sink    shelve\.open\s*\(
+  sink    jsonpickle\.decode\s*\(
+  sanitizer  yaml\.safe_load
+  sanitizer  json\.loads
+  sanitizer  \.startswith\s*\(
+  sanitizer  \.endswith\s*\(
+  sanitizer  \.isalnum\s*\(
+  sanitizer  \.isalpha\s*\(
+  sanitizer  re\.match
+  sanitizer  re\.fullmatch
+  passthrough  str\s*\(
+  passthrough  \.strip\s*\(
+  passthrough  \.lstrip\s*\(
+  passthrough  \.rstrip\s*\(
+  passthrough  \.lower\s*\(
+  passthrough  \.upper\s*\(
+  passthrough  \.encode\s*\(
+  passthrough  \.decode\s*\(
+  passthrough  urllib\.parse\.unquote
+  passthrough  urllib\.parse\.quote
+  passthrough  json\.loads
+  passthrough  json\.dumps
+  passthrough  base64\.b64decode
+  passthrough  \.replace\s*\(
+  passthrough  \.format\s*\(
+  passthrough  urllib\.parse\.unquote_plus
+  passthrough  base64\.b64encode
+  passthrough  base64\.urlsafe_b64decode
+  passthrough  base64\.urlsafe_b64encode
+  passthrough  configparser.*\.get\s*\(
+  passthrough  \.encode\s*\(.*utf
+  passthrough  \.decode\s*\(.*utf
+  passthrough  str\.maketrans
+  passthrough  \.translate\s*\(
+  passthrough  \.split\s*\(
+  passthrough  \.join\s*\(
+  passthrough  \[\d+:-?\d*\]
+  passthrough  request_wrapper\s*\(
+  message
+    en: Insecure Deserialization — tainted data deserialized without validation
+    fr: Désérialisation non sécurisée — données non fiables désérialisées sans validation
+  end
+  risk
+    en: An attacker can achieve remote code execution by sending crafted serialized objects.
+    fr: Un attaquant peut obtenir une exécution de code à distance en envoyant des objets sérialisés malveillants.
+    es: Un atacante puede lograr ejecucion remota de codigo enviando objetos serializados manipulados.
+    de: Ein Angreifer kann Remote-Code-Ausfuehrung durch manipulierte serialisierte Objekte erreichen.
+  end
+  solution
+    en: Use json.loads() or yaml.safe_load() instead of unsafe deserialization with untrusted data.
+    fr: Utilisez json.loads() ou yaml.safe_load() au lieu de désérialisation non sécurisée avec des données non fiables.
+    es: Usar json.loads() o yaml.safe_load() en lugar de deserializacion insegura con datos no confiables.
+    de: json.loads() oder yaml.safe_load() anstelle unsicherer Deserialisierung mit nicht vertrauenswuerdigen Daten verwenden.
+  end
+  metadata
+    cwe    CWE-502
+    owasp  A08:2021
+  end
+  benefit
+    en: Reduces attack surface and strengthens application security.
+    fr: Reduit la surface d'attaque et renforce la securite de l'application.
+    es: Reduce la superficie de ataque y refuerza la seguridad de la aplicacion.
+    de: Reduziert die Angriffsflaeche und staerkt die Anwendungssicherheit.
+  end
+  fix_before
+    data = request.data
+    obj = pickle.loads(data)
+  end
+  fix_after
+    data = request.data
+    obj = json.loads(data)  # safe alternative to pickle
+  end
+end

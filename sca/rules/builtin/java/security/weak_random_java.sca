@@ -1,0 +1,36 @@
+rule weak_random_java
+  language  java
+  category  security
+  severity  MEDIUM
+  match
+    pattern  new\s+Random\s*\(\s*\)
+    scope    line
+  end
+  metadata
+    cwe    CWE-330
+  end
+  risk
+    en: java.util.Random is predictable — tokens, sessions, and keys generated with it can be guessed.
+    fr: java.util.Random est prévisible — les tokens, sessions et clés générés avec peuvent être devinés.
+    es: java.util.Random es predecible — tokens, sesiones y claves generados con él pueden ser adivinados.
+    de: java.util.Random ist vorhersagbar — damit generierte Tokens, Sessions und Schlüssel können erraten werden.
+  end
+  solution
+    en: Use java.security.SecureRandom for all security-sensitive random generation.
+    fr: Utiliser java.security.SecureRandom pour toute génération aléatoire liée à la sécurité.
+    es: Usar java.security.SecureRandom para toda generación aleatoria relacionada con seguridad.
+    de: java.security.SecureRandom für alle sicherheitsrelevanten Zufallsgenerierungen verwenden.
+  end
+  benefit
+    en: Reduces attack surface and strengthens application security.
+    fr: Reduit la surface d'attaque et renforce la securite de l'application.
+    es: Reduce la superficie de ataque y refuerza la seguridad de la aplicacion.
+    de: Reduziert die Angriffsflaeche und staerkt die Anwendungssicherheit.
+  end
+  fix_before
+    int token = new Random().nextInt();
+  end
+  fix_after
+    int token = SecureRandom.getInstanceStrong().nextInt();
+  end
+end

@@ -1,0 +1,20 @@
+# @audit-fixture
+# Covers: docker_latest_tag
+
+stages:
+  - build
+  - test
+
+build:
+  image: node:latest
+  stage: build
+  script:
+    - npm ci
+    - npm run build
+
+test:
+  image: python:latest
+  stage: test
+  script:
+    - pip install -r requirements.txt
+    - pytest

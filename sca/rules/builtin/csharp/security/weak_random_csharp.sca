@@ -1,0 +1,36 @@
+rule weak_random_csharp
+  language  csharp
+  category  security
+  severity  MEDIUM
+  match
+    pattern  new\s+Random\s*\(\s*\)
+    scope    line
+  end
+  metadata
+    cwe    CWE-330
+  end
+  risk
+    en: System.Random is predictable — tokens, sessions, and keys generated with it can be guessed.
+    fr: System.Random est prévisible — les tokens, sessions et clés générés avec peuvent être devinés.
+    es: System.Random es predecible — tokens, sesiones y claves generados con él pueden ser adivinados.
+    de: System.Random ist vorhersagbar — damit generierte Tokens, Sessions und Schlüssel können erraten werden.
+  end
+  solution
+    en: Use RandomNumberGenerator (System.Security.Cryptography) for security-sensitive random generation.
+    fr: Utiliser RandomNumberGenerator (System.Security.Cryptography) pour la génération aléatoire liée à la sécurité.
+    es: Usar RandomNumberGenerator (System.Security.Cryptography) para generación aleatoria de seguridad.
+    de: RandomNumberGenerator (System.Security.Cryptography) für sicherheitsrelevante Zufallsgenerierung verwenden.
+  end
+  benefit
+    en: Reduces attack surface and strengthens application security.
+    fr: Reduit la surface d'attaque et renforce la securite de l'application.
+    es: Reduce la superficie de ataque y refuerza la seguridad de la aplicacion.
+    de: Reduziert die Angriffsflaeche und staerkt die Anwendungssicherheit.
+  end
+  fix_before
+    var r = new Random().Next();
+  end
+  fix_after
+    var r = RandomNumberGenerator.GetInt32(max);
+  end
+end

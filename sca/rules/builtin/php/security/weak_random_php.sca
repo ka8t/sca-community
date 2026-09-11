@@ -1,0 +1,36 @@
+rule weak_random_php
+  language  php
+  category  security
+  severity  MEDIUM
+  match
+    pattern  \b(?:rand|mt_rand|array_rand)\s*\(
+    scope    line
+  end
+  metadata
+    cwe    CWE-330
+  end
+  risk
+    en: rand()/mt_rand() are predictable — tokens and keys generated with them can be guessed.
+    fr: rand()/mt_rand() sont prévisibles — les tokens et clés générés avec peuvent être devinés.
+    es: rand()/mt_rand() son predecibles — tokens y claves generados con ellos pueden ser adivinados.
+    de: rand()/mt_rand() sind vorhersagbar — damit generierte Tokens und Schlüssel können erraten werden.
+  end
+  solution
+    en: Use random_bytes() or random_int() for security-sensitive random generation.
+    fr: Utiliser random_bytes() ou random_int() pour la génération aléatoire de sécurité.
+    es: Usar random_bytes() o random_int() para generación aleatoria de seguridad.
+    de: random_bytes() oder random_int() für sicherheitsrelevante Zufallsgenerierung verwenden.
+  end
+  benefit
+    en: Reduces attack surface and strengthens application security.
+    fr: Reduit la surface d'attaque et renforce la securite de l'application.
+    es: Reduce la superficie de ataque y refuerza la seguridad de la aplicacion.
+    de: Reduziert die Angriffsflaeche und staerkt die Anwendungssicherheit.
+  end
+  fix_before
+    $token = rand();
+  end
+  fix_after
+    $token = random_bytes(32);
+  end
+end

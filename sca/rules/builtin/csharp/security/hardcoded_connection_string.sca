@@ -1,0 +1,40 @@
+rule hardcoded_connection_string
+  language  csharp
+  severity  HIGH
+  category  security
+  confidence 85
+  match
+    pattern  ['"](?:[^'"]*(?:Password|PWD|User\s*Id|UID)\s*=\s*[^;'"]{4,})[^'"]*['"]
+    scope    line
+    pattern-not  (?:\{|process\.|Environment\.|ConfigurationManager\.|appSettings)
+  end
+  metadata
+    cwe    CWE-259
+    cwe    CWE-321
+    cwe    CWE-798
+  end
+  risk
+    en: A hardcoded database connection string containing credentials (Password=, PWD=, User Id=) embeds plaintext credentials in the source code — visible in version control history, compiled assemblies via decompilation, and cannot be rotated without a code change (CWE-259, CWE-321, CWE-798).
+    fr: Une chaine de connexion de base de donnees hardcodee contenant des credentials (Password=, PWD=, User Id=) integre des credentials en clair dans le code source — visible dans l'historique du controle de version, dans les assemblies compilees via decompilation (CWE-259, CWE-321, CWE-798).
+    es: Una cadena de conexion hardcodeada con credenciales embebe texto claro en el codigo fuente (CWE-798).
+    de: Eine hartkodierte Datenbankverbindungszeichenkette mit Credentials enthalt Klartext-Credentials im Quellcode (CWE-798).
+  end
+  solution
+    en: Store connection strings in Web.config connectionStrings section (which supports encryption via aspnet_regiis) or environment variables. In ASP.NET Core, use Secret Manager or Azure Key Vault.
+    fr: Stocker les chaines de connexion dans la section connectionStrings de Web.config (qui supporte le chiffrement via aspnet_regiis) ou les variables d'environnement. Dans ASP.NET Core, utiliser Secret Manager ou Azure Key Vault.
+    es: Almacenar cadenas de conexion en Web.config (con cifrado via aspnet_regiis) o variables de entorno.
+    de: Verbindungszeichenketten in Web.config connectionStrings (mit Verschluesselung via aspnet_regiis) oder Umgebungsvariablen speichern.
+  end
+  benefit
+    en: Prevents database credential exposure via hardcoded connection strings in source code.
+    fr: Empeche l'exposition des credentials de base de donnees via des chaines de connexion hardcodees dans le code source.
+    es: Previene la exposicion de credenciales de BD mediante cadenas de conexion hardcodeadas.
+    de: Verhindert Datenbank-Credential-Exposition durch hartkodierte Verbindungszeichenketten im Quellcode.
+  end
+  fix_before
+    var conn = new SqlConnection("Server=db;Database=app;User Id=sa;Password=Pass@word1;");
+  end
+  fix_after
+    var conn = new SqlConnection(ConfigurationManager.ConnectionStrings["AppDb"].ConnectionString);
+  end
+end

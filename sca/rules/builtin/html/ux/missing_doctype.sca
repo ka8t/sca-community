@@ -1,0 +1,37 @@
+rule missing_doctype
+  language  html
+  category  ux
+  severity  LOW
+  requires
+    has      <html
+    not_has  (?i)<!DOCTYPE
+  end
+  metadata
+    wcag    4.1.1
+  end
+  risk
+    en: Browser renders in quirks mode, causing inconsistent layout and behavior.
+    fr: Le navigateur affiche en mode quirks, causant un rendu incohérent.
+    es: El navegador renderiza en modo quirks, causando un diseño inconsistente.
+    de: Der Browser rendert im Quirks-Modus, was inkonsistentes Layout verursacht.
+  end
+  solution
+    en: Add <!DOCTYPE html> as the first line of the HTML document.
+    fr: Ajoutez <!DOCTYPE html> comme première ligne du document HTML.
+    es: Agregue <!DOCTYPE html> como primera línea del documento HTML.
+    de: Fügen Sie <!DOCTYPE html> als erste Zeile des HTML-Dokuments hinzu.
+  end
+  benefit
+    en: Improves accessibility and user experience.
+    fr: Ameliore l'accessibilite et l'experience utilisateur.
+    es: Mejora la accesibilidad y la experiencia de usuario.
+    de: Verbessert die Barrierefreiheit und die Benutzererfahrung.
+  end
+  fix_before
+    <html>
+  end
+  fix_after
+    <!DOCTYPE html>
+    <html lang="en">
+  end
+end

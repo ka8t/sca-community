@@ -1,0 +1,15 @@
+# @audit-fixture
+# Covers: ci_docker_privileged
+
+stages:
+  - build
+
+build:
+  stage: build
+  image: docker:24-dind
+  services:
+    - name: docker:24-dind
+      options: --privileged
+  script:
+    - docker build -t myapp:latest .
+    - docker push myapp:latest

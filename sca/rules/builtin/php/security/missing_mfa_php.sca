@@ -1,0 +1,36 @@
+rule missing_mfa_php
+  language  php
+  category  security
+  severity  MEDIUM
+  requires
+    has      (?:Auth::attempt|auth\(\)->attempt|Auth::login)
+    not_has  (?:\.totp|\.otp|verify_otp|verify_totp|google2fa|PragmaRX|TwoFactorAuth|enable_mfa)
+  end
+  metadata
+    cwe    CWE-308
+  end
+  risk
+    en: Authentication without multi-factor authentication exposes accounts to credential theft (CWE-308).
+    fr: Authentification sans double facteur expose les comptes au vol d'identifiants (CWE-308).
+    es: Autenticación sin factor doble expone las cuentas al robo de credenciales (CWE-308).
+    de: Authentifizierung ohne Multi-Faktor-Authentifizierung setzt Konten dem Diebstahl von Anmeldedaten aus (CWE-308).
+  end
+  solution
+    en: Integrate google2fa or pragmarx/google2fa-laravel for TOTP-based two-factor authentication.
+    fr: Intégrer google2fa ou pragmarx/google2fa-laravel pour l'authentification TOTP.
+    es: Integrar google2fa o pragmarx/google2fa-laravel para autenticación TOTP.
+    de: google2fa oder pragmarx/google2fa-laravel für TOTP-basierte Authentifizierung integrieren.
+  end
+  benefit
+    en: Reduces attack surface and strengthens application security.
+    fr: Reduit la surface d'attaque et renforce la securite de l'application.
+    es: Reduce la superficie de ataque y refuerza la seguridad de la aplicacion.
+    de: Reduziert die Angriffsflaeche und staerkt die Anwendungssicherheit.
+  end
+  fix_before
+    if (password_verify($pw, $hash)) login();
+  end
+  fix_after
+    if (password_verify($pw, $hash) && verify_totp($code)) login();
+  end
+end

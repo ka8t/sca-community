@@ -1,0 +1,43 @@
+rule hardcoded_connection_string_php
+  language  php
+  severity  HIGH
+  category  security
+  confidence 85
+  match
+    pattern  (?:new\s+PDO|new\s+mysqli|mysql_connect|mysqli_connect|pg_connect|odbc_connect)\s*\([^)]*,\s*[^,)]*,\s*["'][^'"]{4,}["']
+    scope    line
+  end
+  metadata
+    cwe    CWE-798
+  end
+  risk
+    en: A database connection uses a hardcoded password literal as a direct argument. Credentials in source code appear in version control history, deployment artifacts, and can be extracted by anyone with code access (CWE-798).
+    fr: Une connexion à la base de données utilise un mot de passe littéral codé en dur comme argument direct. Les credentials dans le code source apparaissent dans l'historique du contrôle de version, les artefacts de déploiement et peuvent être extraits par quiconque ayant accès au code (CWE-798).
+    es: Una conexión de base de datos usa una contraseña literal codificada como argumento directo. Las credenciales en el código fuente aparecen en el historial de control de versiones (CWE-798).
+    de: Eine Datenbankverbindung verwendet ein hartkodiertes Passwort-Literal als direktes Argument. Zugangsdaten im Quellcode erscheinen in der Versionskontrollhistorie (CWE-798).
+  end
+  solution
+    en: Read database password from environment variables: $password = getenv('DB_PASSWORD') or $_ENV['DB_PASSWORD']. Use a .env file loaded by a library like vlucas/phpdotenv, but never commit .env files. Store production secrets in environment variables or a secrets manager.
+    fr: Lire le mot de passe de la base de données depuis des variables d'environnement : $password = getenv('DB_PASSWORD') ou $_ENV['DB_PASSWORD']. Utiliser un fichier .env chargé par une bibliothèque comme vlucas/phpdotenv, mais ne jamais commiter les fichiers .env.
+    es: Leer la contraseña de base de datos desde variables de entorno: $password = getenv('DB_PASSWORD'). Usar un archivo .env con vlucas/phpdotenv, pero nunca commitear archivos .env.
+    de: Datenbankpasswort aus Umgebungsvariablen lesen: $password = getenv('DB_PASSWORD'). Eine .env-Datei mit vlucas/phpdotenv verwenden, aber nie .env-Dateien committen.
+  end
+  benefit
+    en: Prevents database credential exposure via source code and version control history.
+    fr: Empêche l'exposition des credentials de base de données via le code source et l'historique du contrôle de version.
+    es: Previene la exposición de credenciales de base de datos mediante el código fuente.
+    de: Verhindert Datenbank-Credential-Exposition über den Quellcode und die Versionskontrollhistorie.
+  end
+  fix_before
+    <?php
+
+    $pdo = new PDO("mysql:host=localhost;dbname=app", "root", "secret123");
+  end
+  fix_after
+    $pdo = new PDO(
+        getenv('DB_DSN'),
+        getenv('DB_USER'),
+        getenv('DB_PASSWORD')
+    );
+  end
+end

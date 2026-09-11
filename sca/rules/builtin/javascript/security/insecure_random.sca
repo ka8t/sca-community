@@ -1,0 +1,37 @@
+rule insecure_random
+  language  javascript
+  category  security
+  severity  MEDIUM
+  match
+    pattern  Math\.random\s*\(\s*\)
+    scope    line
+  end
+  metadata
+    cwe    CWE-330
+    cwe    CWE-338
+  end
+  risk
+    en: Math.random() is predictable and must not be used for tokens, OTPs or keys.
+    fr: Math.random() est prévisible et ne doit pas être utilisé pour des tokens, OTP ou clés.
+    es: Math.random() es predecible y no debe usarse para tokens, OTP o claves.
+    de: Math.random() ist vorhersehbar und darf nicht für Tokens, OTPs oder Schlüssel verwendet werden.
+  end
+  solution
+    en: Use crypto.getRandomValues() or crypto.randomUUID() for sensitive values.
+    fr: Utiliser crypto.getRandomValues() ou crypto.randomUUID() pour les valeurs sensibles.
+    es: Usar crypto.getRandomValues() o crypto.randomUUID() para valores sensibles.
+    de: crypto.getRandomValues() oder crypto.randomUUID() für sensible Werte verwenden.
+  end
+  benefit
+    en: Reduces attack surface and strengthens application security.
+    fr: Reduit la surface d'attaque et renforce la securite de l'application.
+    es: Reduce la superficie de ataque y refuerza la seguridad de la aplicacion.
+    de: Reduziert die Angriffsflaeche und staerkt die Anwendungssicherheit.
+  end
+  fix_before
+    Math.random().toString(36);
+  end
+  fix_after
+    crypto.randomUUID();
+  end
+end

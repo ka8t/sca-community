@@ -1,0 +1,5 @@
+# @audit-fixture
+# @rule: dockerfile_copy_all
+# @category: security
+# @expected: clean
+// Clean fixture — safe implementation

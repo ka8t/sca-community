@@ -1,0 +1,10 @@
+# @audit-fixture
+# @rule: unpinned_action_version
+name: CI
+on: push
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@main
+      - uses: actions/setup-node@v3

@@ -1,0 +1,39 @@
+rule unsafe_deserialization_java
+  language  java
+  category  security
+  severity  HIGH
+
+  match
+    pattern  readObject\s*\(
+    scope    line
+  end
+  metadata
+    cwe    CWE-502
+  end
+  risk
+    en: ObjectInputStream.readObject() without validation allows arbitrary code running.
+    fr: ObjectInputStream.readObject() sans validation permet l'exécution de code arbitraire.
+    es: ObjectInputStream.readObject() sin validación permite la ejecución de código arbitrario.
+    de: ObjectInputStream.readObject() ohne Validierung ermöglicht die Ausführung beliebigen Codes.
+  end
+  solution
+    en: Use ObjectInputFilter (Java 9+) or a whitelist of allowed classes. Prefer JSON/XML serialization.
+    fr: Utiliser ObjectInputFilter (Java 9+) ou une liste blanche de classes autorisées. Préférer la sérialisation JSON/XML.
+    es: Usar ObjectInputFilter (Java 9+) o una lista blanca de clases permitidas. Preferir serialización JSON/XML.
+    de: ObjectInputFilter (Java 9+) oder eine Whitelist erlaubter Klassen verwenden. JSON/XML-Serialisierung bevorzugen.
+  end
+  benefit
+    en: Reduces attack surface and strengthens application security.
+    fr: Reduit la surface d'attaque et renforce la securite de l'application.
+    es: Reduce la superficie de ataque y refuerza la seguridad de la aplicacion.
+    de: Reduziert die Angriffsflaeche und staerkt die Anwendungssicherheit.
+  end
+  fix_before
+    ObjectInputStream ois = new ObjectInputStream(stream);
+    Object obj = ois.readObject();
+  end
+  fix_after
+    // Use JSON or validated deserialization
+    Object obj = objectMapper.readValue(json, SafeType.class);
+  end
+end

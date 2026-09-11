@@ -1,0 +1,36 @@
+rule weak_crypto
+  language  python
+  category  security
+  severity  HIGH
+  match
+    pattern  \bhashlib\.(?:(?:md5|sha1)\s*\(|new\s*\(\s*['"](?:md5|sha1)['"])
+    scope    line
+  end
+  metadata
+    cwe    CWE-327
+  end
+  risk
+    en: MD5 and SHA1 are vulnerable to collisions and must not be used for secure hashing.
+    fr: MD5 et SHA1 sont vulnérables aux collisions et ne doivent pas être utilisés pour le hashing sécurisé.
+    es: MD5 y SHA1 son vulnerables a colisiones y no deben usarse para hashing seguro.
+    de: MD5 und SHA1 sind anfällig für Kollisionen und dürfen nicht für sicheres Hashing verwendet werden.
+  end
+  solution
+    en: Use SHA-256/SHA-512 for hashing, bcrypt/argon2 for passwords.
+    fr: Utiliser SHA-256/SHA-512 pour le hashing, bcrypt/argon2 pour les mots de passe.
+    es: Usar SHA-256/SHA-512 para hashing, bcrypt/argon2 para contraseñas.
+    de: SHA-256/SHA-512 für Hashing, bcrypt/argon2 für Passwörter verwenden.
+  end
+  benefit
+    en: Reduces attack surface and strengthens application security (CWE-327, OWASP A02).
+    fr: Reduit la surface d'attaque et renforce la securite de l'application.
+    es: Reduce la superficie de ataque y refuerza la seguridad de la aplicacion.
+    de: Reduziert die Angriffsflaeche und staerkt die Anwendungssicherheit.
+  end
+  fix_before
+    digest = hashlib.md5(data).hexdigest()
+  end
+  fix_after
+    digest = hashlib.sha256(data).hexdigest()
+  end
+end

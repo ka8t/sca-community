@@ -1,0 +1,36 @@
+rule unsafe_deserialization_php
+  language  php
+  category  security
+  severity  HIGH
+  match
+    pattern  \bunserialize\s*\(
+    scope    line
+  end
+  metadata
+    cwe    CWE-502
+  end
+  risk
+    en: unserialize() with untrusted data allows PHP Object Injection attacks.
+    fr: unserialize() avec des données non fiables permet les attaques PHP Object Injection.
+    es: unserialize() con datos no confiables permite ataques de PHP Object Injection.
+    de: unserialize() mit nicht vertrauenswürdigen Daten ermöglicht PHP Object Injection.
+  end
+  solution
+    en: Use json_decode() instead. If unserialize is required, use allowed_classes option.
+    fr: Utiliser json_decode() à la place. Si unserialize est requis, utiliser l'option allowed_classes.
+    es: Usar json_decode() en su lugar. Si se requiere unserialize, usar la opción allowed_classes.
+    de: json_decode() verwenden. Wenn unserialize nötig, allowed_classes-Option nutzen.
+  end
+  benefit
+    en: Reduces attack surface and strengthens application security.
+    fr: Reduit la surface d'attaque et renforce la securite de l'application.
+    es: Reduce la superficie de ataque y refuerza la seguridad de la aplicacion.
+    de: Reduziert die Angriffsflaeche und staerkt die Anwendungssicherheit.
+  end
+  fix_before
+    $obj = unserialize($data);
+  end
+  fix_after
+    $obj = json_decode($data, true);
+  end
+end

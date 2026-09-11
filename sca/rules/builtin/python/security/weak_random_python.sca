@@ -1,0 +1,37 @@
+rule weak_random_python
+  language python
+  category  security
+  severity MEDIUM
+  match
+    pattern  \brandom\.(?:random|randint|choice|randrange|uniform|normalvariate|gauss|sample|shuffle|getrandbits|randbytes)\s*\(
+    scope    line
+  end
+  metadata
+    cwe    CWE-330
+  end
+  risk
+    en: random module is not cryptographically secure; predictable values enable attacks.
+    fr: Le module random n'est pas cryptographiquement sûr ; les valeurs prévisibles permettent des attaques.
+    es: El módulo random no es criptográficamente seguro; valores predecibles permiten ataques.
+    de: Das random-Modul ist nicht kryptografisch sicher; vorhersagbare Werte ermöglichen Angriffe.
+  end
+  solution
+    en: Use secrets module for security-sensitive operations: secrets.token_hex().
+    fr: Utilisez le module secrets pour les opérations sensibles : secrets.token_hex().
+    es: Use el módulo secrets para operaciones sensibles: secrets.token_hex().
+    de: Verwenden Sie das secrets-Modul für sicherheitskritische Operationen: secrets.token_hex().
+  end
+  benefit
+    en: Reduces attack surface and strengthens application security (CWE-330, OWASP A02).
+    fr: Reduit la surface d'attaque et renforce la securite de l'application.
+    es: Reduce la superficie de ataque y refuerza la seguridad de la aplicacion.
+    de: Reduziert die Angriffsflaeche und staerkt die Anwendungssicherheit.
+  end
+  fix_before
+    token = random.randint(100000, 999999)
+  end
+  fix_after
+    import secrets
+    token = secrets.randbelow(900000) + 100000
+  end
+end

@@ -1,0 +1,36 @@
+rule unsafe_deserialization_csharp
+  language  csharp
+  category  security
+  severity  HIGH
+  match
+    pattern  (?:BinaryFormatter|TypeNameHandling\s*=\s*TypeNameHandling\.(?:All|Auto|Objects))
+    scope    line
+  end
+  metadata
+    cwe    CWE-502
+  end
+  risk
+    en: BinaryFormatter and TypeNameHandling.All allow arbitrary code running via crafted payloads.
+    fr: BinaryFormatter et TypeNameHandling.All permettent l'exécution de code arbitraire via des payloads forgés.
+    es: BinaryFormatter y TypeNameHandling.All permiten la ejecución de código arbitrario mediante payloads manipulados.
+    de: BinaryFormatter und TypeNameHandling.All ermöglichen beliebige Codeausführung über manipulierte Payloads.
+  end
+  solution
+    en: Use System.Text.Json or Newtonsoft.Json with TypeNameHandling.None. Never use BinaryFormatter (CA2300).
+    fr: Utiliser System.Text.Json ou Newtonsoft.Json avec TypeNameHandling.None. Ne jamais utiliser BinaryFormatter (CA2300).
+    es: Usar System.Text.Json o Newtonsoft.Json con TypeNameHandling.None. Nunca usar BinaryFormatter (CA2300).
+    de: System.Text.Json oder Newtonsoft.Json mit TypeNameHandling.None verwenden. Niemals BinaryFormatter verwenden (CA2300).
+  end
+  benefit
+    en: Reduces attack surface and strengthens application security.
+    fr: Reduit la surface d'attaque et renforce la securite de l'application.
+    es: Reduce la superficie de ataque y refuerza la seguridad de la aplicacion.
+    de: Reduziert die Angriffsflaeche und staerkt die Anwendungssicherheit.
+  end
+  fix_before
+    var obj = new BinaryFormatter().Deserialize(stream);
+  end
+  fix_after
+    var obj = JsonSerializer.Deserialize<MyType>(json);
+  end
+end

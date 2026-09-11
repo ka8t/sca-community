@@ -1,0 +1,118 @@
+{
+  "_comment": "Ce fichier documente les valeurs par défaut utilisées quand un champ est absent du audit.config.json",
+  "_note": "languages et paths.include sont OBLIGATOIRES - pas de valeur par défaut",
+
+  "brand": {
+    "tool_name": "StaticCodeAudit",
+    "company_name": "CodeFixture",
+    "prefix": "SCA",
+    "logo": null,
+    "primary_color": "#1e3a5f",
+    "accent_color": "#2c5282",
+    "website_url": null
+  },
+
+  "languages": "OBLIGATOIRE - liste des langages du projet. Valeurs supportées : python, javascript, html, java, csharp, php, yaml. javascript couvre .jsx, .ts, .tsx, .mjs. csharp couvre .cs. php couvre .php, .inc. yaml couvre .yml, .yaml (CI/CD).",
+
+  "versions": "OPTIONNEL - dict de versions langages/frameworks (ex: {\"python\": \"3.11\", \"java\": \"17\"}). Auto-détecté si absent. Utilisé pour les règles deprecated API version-aware.",
+
+  "project": {
+    "id": "(UUID généré automatiquement au --init)",
+    "name": "(détecté depuis le nom du répertoire)",
+    "version": "(détecté depuis package.json ou pyproject.toml)",
+    "description": ""
+  },
+
+  "paths": {
+    "include": "OBLIGATOIRE - aucune valeur par défaut",
+    "exclude": []
+  },
+
+  "categories": {
+    "security": { "enabled": true, "weight": 3 },
+    "architecture": { "enabled": true, "weight": 2 },
+    "ui": { "enabled": true, "weight": 1 },
+    "ux": { "enabled": true, "weight": 1 },
+    "maintenance": { "enabled": true, "weight": 1 },
+    "dependencies": { "enabled": false, "weight": 2 },
+    "database": { "enabled": false, "weight": 2 },
+    "cicd": { "enabled": false, "weight": 2, "_comment": "CI/CD pipeline audit (GitHub Actions, GitLab CI). Requires 'yaml' in languages." }
+  },
+
+  "_performance_doc": "OPTIONNEL - section 'performance' pour D.2 (cache règles + analyse incrémentale + parallélisation). Voir docs/plans/PLAN-AUDIT-CONFORMITE.html §20. Surchargeable via env vars SCA_NO_CACHE / SCA_NO_INCREMENTAL / SCA_NO_PARALLEL ou options CLI --no-cache / --no-incremental / --no-parallel.",
+  "performance": {
+    "rule_cache": true,
+    "incremental": true,
+    "parallel": false,
+    "max_workers": 0,
+    "parallel_threshold": 100,
+    "_comment": "rule_cache: cache règles compilées (.sca-cache/rules-*.pkl). incremental: cache findings par fichier (.sca-cache/file-hashes.json). parallel: ThreadPoolExecutor (DÉSACTIVÉ par défaut — overhead dépasse le gain tant que les executors ne sont pas thread-safe). max_workers: 0 = auto (min(cpu_count, 8)). parallel_threshold: nombre min de fichiers pour activer la parallélisation."
+  },
+
+  "rules": {
+    "disabled": []
+  },
+
+  "fixtures": {
+    "_note": "Les fixtures sont chargées depuis projects/{uuid}/fixtures/ (si existe) + generic/",
+    "include_generic": true
+  },
+
+  "reports": {
+    "output_dir": "docs/audit-reports",
+    "history_dir": "docs/audit-reports/audit-datas",
+    "max_history": 10,
+    "language": "en"
+  },
+
+  "tests": {
+    "enabled": true,
+    "tests_dir": "tests/",
+    "command": "python -m pytest {tests_dir} -v --tb=short"
+  },
+
+  "thresholds": {
+    "max_high": 0,
+    "max_medium": 10,
+    "min_health": 80
+  },
+
+  "retention": {
+    "_comment": "Automatic cleanup of old reports. mode: 'count' (keep max_count), 'days' (keep max_days), 'both' (apply both), null (no cleanup).",
+    "mode": null,
+    "max_count": 10,
+    "max_days": 90
+  },
+
+  "database": {
+    "enabled": false,
+    "host": "localhost",
+    "port": "5432",
+    "database": "",
+    "user": "",
+    "password_env_file": ".env",
+    "password_env_var": "DB_PASSWORD"
+  },
+
+  "compliance": {
+    "iso27001": {
+      "enabled": true,
+      "_comment": "ISO/IEC 27001:2022 Annex A compliance matrix. Maps audit findings to Annex A controls."
+    },
+    "asvs": {
+      "enabled": true,
+      "_comment": "OWASP ASVS v5.0.0 compliance matrix. Maps audit findings to ASVS requirements."
+    }
+  },
+
+  "sla": {
+    "enabled": false,
+    "_comment": "SLA targets by severity. Enable to show remediation timelines in report.",
+    "rules": {
+      "CRITICAL": { "delay": "24h", "escalation": "CISO / CTO" },
+      "HIGH": { "delay": "48h", "escalation": "CTO / Security Lead" },
+      "MEDIUM": { "delay": "2 weeks", "escalation": "Tech Lead" },
+      "LOW": { "delay": "3 months", "escalation": "Quarterly review" }
+    }
+  }
+}

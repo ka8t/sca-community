@@ -1,0 +1,37 @@
+rule html_no_lang
+  language html
+  category ux
+  severity MEDIUM
+  match
+    pattern  <html[^>]*>
+    pattern-not  lang=
+    scope    line
+  end
+  metadata
+    wcag    3.1.1
+  end
+  risk
+    en: Screen readers cannot determine the page language, affecting pronunciation.
+    fr: Les lecteurs d'écran ne peuvent pas déterminer la langue, affectant la prononciation.
+    es: Los lectores de pantalla no pueden determinar el idioma, afectando la pronunciación.
+    de: Screenreader können die Seitensprache nicht bestimmen, was die Aussprache beeinträchtigt.
+  end
+  solution
+    en: Add lang attribute to the html element: <html lang="en">.
+    fr: Ajoutez l'attribut lang à l'élément html : <html lang="fr">.
+    es: Agregue el atributo lang al elemento html: <html lang="es">.
+    de: Fügen Sie das lang-Attribut zum html-Element hinzu: <html lang="de">.
+  end
+  benefit
+    en: Improves accessibility and user experience.
+    fr: Ameliore l'accessibilite et l'experience utilisateur.
+    es: Mejora la accesibilidad y la experiencia de usuario.
+    de: Verbessert die Barrierefreiheit und die Benutzererfahrung.
+  end
+  fix_before
+    <html>
+  end
+  fix_after
+    <html lang="en">
+  end
+end

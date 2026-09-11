@@ -1,0 +1,14 @@
+# @audit-fixture
+# @rule: dockerfile_root_user, dockerfile_unpinned_base, dockerfile_copy_all
+# @category: security
+# @expected: clean
+
+FROM node:20-alpine
+
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci --only=production
+COPY src/ ./src/
+EXPOSE 3000
+USER appuser
+CMD ["node", "src/server.js"]

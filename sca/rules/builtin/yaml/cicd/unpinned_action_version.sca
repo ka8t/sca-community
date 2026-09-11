@@ -1,0 +1,37 @@
+rule unpinned_action_version
+  language  yaml
+  severity  MEDIUM
+  category  cicd
+  match
+    pattern  uses:\s*\S+@(?:master|main|v\d+)
+    pattern-not  (?:@[0-9a-f]{40}|actions/checkout@v)
+    scope    line
+  end
+  metadata
+    cwe    CWE-1357
+  end
+  risk
+    en: GitHub Action referenced by branch/tag instead of SHA allows supply chain attacks if the action is compromised.
+    fr: Action GitHub référencée par branche/tag au lieu de SHA permet des attaques supply chain si l'action est compromise.
+    es: Action GitHub referenciada por rama/tag en lugar de SHA permite ataques de cadena de suministro si la acción está comprometida.
+    de: GitHub Action über Branch/Tag statt SHA referenziert ermöglicht Supply-Chain-Angriffe bei Kompromittierung.
+  end
+  solution
+    en: Pin actions to full SHA commit hash (e.g., actions/checkout@a81bbbf).
+    fr: Épinglez les actions au SHA complet du commit (ex: actions/checkout@a81bbbf).
+    es: Fije las acciones al hash SHA completo del commit (ej: actions/checkout@a81bbbf).
+    de: Actions auf vollständigen SHA-Commit-Hash pinnen (z.B. actions/checkout@a81bbbf).
+  end
+  benefit
+    en: Strengthens CI/CD pipeline security and reliability.
+    fr: Renforce la securite et la fiabilite du pipeline CI/CD.
+    es: Refuerza la seguridad y fiabilidad del pipeline CI/CD.
+    de: Staerkt die Sicherheit und Zuverlaessigkeit der CI/CD-Pipeline.
+  end
+  fix_before
+    uses: actions/checkout@main
+  end
+  fix_after
+    uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+  end
+end

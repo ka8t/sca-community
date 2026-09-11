@@ -1,0 +1,1056 @@
+{
+  "title": "Audit Report",
+  "lang_label": "🇬🇧 English",
+  "toc": "Table of Contents",
+  "generated_on": "Generated on",
+  "summary": "Summary",
+  "health_score": "Code Security Score",
+  "score_legend": "🟢 ≥ {good}% Good · 🟠 {warning}-{good}% Fair · 🔴 < {warning}% Needs improvement",
+  "health_formula": "100 ÷ (1 + P ÷ (20 × F))",
+  "health_explanation_heading": "How is the {label} above calculated?",
+  "health_method": "This score measures source code security only. Formula: 100 ÷ (1 + P ÷ (20 × F)), where P = sum of penalties and F = LOC factor (lines of code ÷ 1,000, minimum 1). Each Security finding costs: CRITICAL (10), HIGH (5), MEDIUM (2), LOW (1). LOC weighting normalizes the score by project size. Non-security categories (Architecture, UI, UX, Maintenance) are not factored in.",
+  "visualization": "Visualization",
+  "findings": "Detected Issues",
+  "validations": "Verified Good Practices",
+  "comparison": "Comparison with baseline",
+  "comparison_baseline": "Baseline",
+  "comparison_current": "Current",
+  "comparison_trend_improved": "Improved",
+  "comparison_trend_regressed": "Regressed",
+  "comparison_trend_stable": "Stable",
+  "comparison_resolved_short": "resolved",
+  "comparison_new_short": "added",
+  "comparison_no_change": "No change since baseline",
+  "top_files": "Top 10 Problematic Files",
+  "top_files_subtitle": "Ranked by severity score (CRITICAL×10, HIGH×5, MEDIUM×2, LOW×1)",
+  "severity_score": "Severity score (CRITICAL×10, HIGH×5, MEDIUM×2, LOW×1)",
+  "severity_distribution": "Distribution by Severity",
+  "severity_distribution_subtitle": "Number of issues per severity level (CRITICAL, HIGH, MEDIUM, LOW, INFO)",
+  "by_category": "Issues by Category",
+  "by_category_subtitle": "Number of issues per audit category (Security, Architecture, UI, UX, Maintenance) — not to be confused with severity above",
+  "category_examples_title": "Representative examples by category",
+  "category_examples_subtitle": "The most frequent issue in each category, with a real instance detected in this project and the generic fix for this type of pattern.",
+  "category_example_detected": "Detected in your code",
+  "category_example_fix": "How to fix this type of pattern",
+  "category_example_occurrences": "{count} occurrence(s) detected in this category",
+  "category_example_bridge": "💡 This rule flags a broader principle than just this snippet: {solution}. The example below illustrates the general fix principle, not necessarily your exact case.",
+  "code_vs_deps": "Business Code vs Dependencies",
+  "tests_evolution": "Tests Evolution",
+  "findings_evolution": "Issues Evolution",
+  "database_evolution": "Schema Evolution",
+  "audit_duration": "Audit Duration",
+  "tests": "Unit Tests",
+  "fixtures": "Fixtures Validation",
+  "custom_rules_nav": "Custom Rules",
+  "database_schema": "Database Schema",
+  "parameters": "Parameters",
+  "navigation": "Navigation",
+  "print_version": "Print version",
+  "audit_scope": "Audit Scope",
+  "issues_count": "issue(s)",
+  "header": "Header",
+  "level_executive": "Executive Overview",
+  "level_detail": "Technical Details",
+  "top_files_nav": "Top Files",
+  "chart_subtitles": {
+    "findings_history": "HIGH / MEDIUM / LOW over 10 audits",
+    "tests_history": "Success rate and test count",
+    "database_history": "Tables, columns and changes over 10 audits"
+  },
+  "fixtures_detected": "vulnerable detected",
+  "fixtures_validated": "clean validated",
+  "new_issues": "New issues",
+  "resolved_issues": "Resolved issues",
+  "persistent_issues": "Persistent issues",
+  "no_problems": "No specific good practice verified.",
+  "validations_intro": "This section lists positive findings from the audit. Each item represents a verified security or architecture good practice in your code.",
+  "success_cat_no_critical": "{cat}: no CRITICAL or HIGH finding — category within acceptable thresholds.",
+  "success_tests_coverage": "Test coverage: {rate}% — threshold reached (≥ 80%).",
+  "success_fixtures_coverage": "Fixture coverage: {rate}% — all rules validated by test cases.",
+  "no_problematic_files": "No problematic files.",
+  "no_issues_business": "No issues in business code.",
+  "no_issues_deps": "No issues in dependencies.",
+  "no_issues_category": "No issues detected in this category.",
+  "issues_count_label": "issue(s)",
+  "audit_params": {
+    "project_info": "Project",
+    "project_name": "Name",
+    "project_version": "Version",
+    "project_description": "Description",
+    "project_id": "Identifier",
+    "project_path": "Path",
+    "languages": "Languages",
+    "scanned_extensions": "Scanned extensions",
+    "analyzed_dirs": "Analyzed directories",
+    "excluded_patterns": "Excluded patterns",
+    "mode": "Mode",
+    "filtered_category": "Filtered category",
+    "disabled_rules": "Disabled rules",
+    "categories": "Categories",
+    "cli_options": "CLI Options"
+  },
+  "cli_options_desc": {
+    "quick": "Quick mode — security only",
+    "fail_on_high": "Exit code 1 if HIGH vulnerabilities found",
+    "validate_fixtures": "Validate fixtures (exit code 2 if invalid)",
+    "with_database": "PostgreSQL schema audit enabled",
+    "skip_tests": "Unit tests disabled",
+    "skip_deps": "Dependency scans disabled",
+    "skip_cicd": "CI/CD pipeline audit disabled",
+    "verbose": "Verbose mode (additional details)",
+    "only_category": "Execution limited to a single category",
+    "disable_rule": "Specific rules disabled",
+    "script_lang": "Console language",
+    "report_lang": "Report language",
+    "output": "Custom output directory",
+    "debug": "Debug logging (levels: info, detail, trace)",
+    "debug_format": "Debug output format (text or json NDJSON)",
+    "sarif": "SARIF 2.1.0 export (GitHub Code Scanning, GitLab SAST)",
+    "sbom": "CycloneDX SBOM generation (dependency inventory)",
+    "retention_dry_run": "Preview report cleanup without deleting files",
+    "git_blame": "Resolve git committer for each finding",
+    "demo": "Sanitized demo report (no sensitive data)",
+    "with_tests": "Auto-detect and run project unit tests",
+    "with_deps": "Dependency vulnerability scan (pip-audit, npm audit)",
+    "severity": "Scan restricted to severity: {levels}"
+  },
+  "severity_filter_banner": "⚠️ Filtered scan — severity levels included: {levels}",
+  "all": "all",
+  "none": "none",
+  "others": "others",
+  "mode_quick": "Quick (security)",
+  "mode_full": "Full",
+  "no_new_issues": "No new issues",
+  "no_resolved_issues": "No resolved issues",
+  "fixtures_validation": "Fixtures Validation",
+  "fixtures_all_correct": "All fixtures are correctly detected",
+  "fixtures_some_incorrect": "Some fixtures are not correctly detected",
+  "fixtures_vulnerable_detected": "vulnerable detected",
+  "fixtures_clean_validated": "clean validated",
+  "fixture_type_vulnerable": "vulnerable",
+  "fixture_expected_detected": "detected",
+  "fixture_expected_ignored": "ignored",
+  "fixtures_detection_failures": "Detection failures",
+  "fixture_expected": "Expected",
+  "fixture_actual": "Actual",
+  "fixture_rule": "Rule",
+  "fixtures_detail_title": "Detail of {{total}} tested fixtures",
+  "fixtures_table_fixture": "Fixture",
+  "fixtures_table_type": "Type",
+  "fixtures_table_expected_rule": "Expected rule",
+  "fixtures_table_status": "Status",
+  "fixtures_more_failures": "... and {{count}} more failures",
+  "fixtures_type_vulnerable": "Vulnerable",
+  "fixtures_type_clean": "Clean",
+  "fixtures_explanation": "Each detection rule is tested against two types of test files (fixtures): vulnerable fixtures contain a known security pattern and must trigger a detection, while clean fixtures contain safe code and must not trigger any alert. This section measures the reliability of every rule.",
+  "fixtures_true_positives": "True Positives",
+  "fixtures_true_positives_desc": "Vulnerable fixtures correctly detected by the rule",
+  "fixtures_true_negatives": "True Negatives",
+  "fixtures_true_negatives_desc": "Clean fixtures correctly ignored (no false alert)",
+  "fixtures_false_negatives": "False Negatives",
+  "fixtures_false_negatives_desc": "Vulnerable fixtures missed by the rule (detection failure)",
+  "fixtures_false_positives": "False Positives",
+  "fixtures_false_positives_desc": "Clean fixtures incorrectly flagged (false alert)",
+  "fixtures_status_detected": "Detected (expected)",
+  "fixtures_status_missed": "Missed",
+  "fixtures_status_ok": "Clean (expected)",
+  "fixtures_status_false_positive": "False positive",
+  "finding_risk": "Risk",
+  "finding_solution": "Solution",
+  "finding_committer": "Committer",
+  "git_blame_section_title": "Findings by Author",
+  "git_blame": {
+    "col_author": "Author",
+    "col_total": "Total"
+  },
+  "severity": {
+    "critical": "Critical (CRITICAL)",
+    "high": "High (HIGH)",
+    "medium": "Medium (MEDIUM)",
+    "low": "Low (LOW)",
+    "info": "Information (INFO)"
+  },
+  "categories": {
+    "security": "Security",
+    "architecture": "Architecture",
+    "ui": "Interface",
+    "ux": "User Experience",
+    "maintenance": "Maintenance",
+    "dependencies": "Dependencies",
+    "database": "Database"
+  },
+  "stats": {
+    "business_code": "Business code",
+    "dependencies": "Dependencies",
+    "tables": "Tables",
+    "columns": "Columns",
+    "indexes": "Indexes",
+    "enums": "Enums",
+    "additions": "Additions",
+    "deletions": "Deletions",
+    "modified": "Modified",
+    "stability": "Stability",
+    "passed": "Passed",
+    "failed": "Failed",
+    "skipped": "Skipped"
+  },
+  "tests_labels": {
+    "passed": "Passed",
+    "failed": "Failed",
+    "errors": "Errors",
+    "skipped": "Skipped",
+    "success_rate": "Success rate",
+    "failed_tests": "Failed tests",
+    "error_tests": "Tests with errors",
+    "duration": "Execution time"
+  },
+  "comparison_labels": {
+    "new": "New",
+    "resolved": "Resolved",
+    "persistent": "Persistent"
+  },
+  "chart_labels": {
+    "critical": "Critical",
+    "high": "High",
+    "medium": "Medium",
+    "low": "Low",
+    "info": "Info",
+    "issues": "issues",
+    "business_code": "Business code",
+    "dependencies": "Dependencies",
+    "total": "total",
+    "passed": "Passed",
+    "failed": "Failed",
+    "errors": "Errors",
+    "skipped": "Skipped",
+    "success": "success",
+    "validated": "validated",
+    "tables": "Tables",
+    "columns": "Columns",
+    "indexes": "Indexes",
+    "additions": "Additions",
+    "deletions": "Deletions",
+    "stable": "stable",
+    "success_rate": "Success rate (%)",
+    "tests_passed": "Tests passed",
+    "rate": "Rate (%)",
+    "count": "Count",
+    "structure": "Structure",
+    "changes": "Changes",
+    "vulnerable": "Vulnerable",
+    "unpinned": "Unpinned",
+    "deps_ok": "OK",
+    "scanned": "scanned",
+    "compliance_coverage": "Coverage",
+    "compliance_covered": "Covered",
+    "compliance_findings": "To Fix",
+    "compliance_not_covered": "Not Covered",
+    "compliance_coverage_chart": "Overall Coverage (%)",
+    "compliance_theme_chart": "Coverage by Theme (%)",
+    "compliance_status_chart": "Controls Status (count)",
+    "compliance_theme_organizational": "Organizational",
+    "compliance_theme_people": "People",
+    "compliance_theme_physical": "Physical",
+    "compliance_theme_technological": "Technological",
+    "asvs_coverage": "Coverage",
+    "asvs_covered": "Covered",
+    "asvs_findings": "With Findings",
+    "asvs_not_covered": "Not Covered",
+    "asvs_coverage_chart": "Overall Coverage (%)",
+    "asvs_chapter_chart": "Coverage by Chapter (%)",
+    "asvs_status_chart": "Requirements Status (count)",
+    "health_penalty": "Penalty",
+    "health_severity_chart": "Penalties by Severity (security findings only)",
+    "findings_by_lang_severity": "Findings by Language & Severity",
+    "nist_coverage": "Coverage",
+    "nist_covered": "Covered",
+    "nist_findings": "With Findings",
+    "nist_not_covered": "Not Covered",
+    "nist_coverage_chart": "Overall Coverage (%)",
+    "nist_function_chart": "Coverage by Function (%)",
+    "nist_status_chart": "Subcategories Status (count)",
+    "compliance_coverage_bar": "Coverage by Standard"
+  },
+  "lines_of_code": "lines of code",
+  "files_scanned": "files scanned",
+  "category_titles": {
+    "security": "Security & OWASP",
+    "architecture": "Architecture & Patterns",
+    "ui": "Interface & Rendering",
+    "ux": "User Experience",
+    "maintenance": "Maintenance & DRY",
+    "dependencies": "Dependencies",
+    "database": "PostgreSQL Schema",
+    "cicd": "CI/CD Pipelines"
+  },
+  "success_messages": {
+    "no_critical_security": "No critical security vulnerability detected"
+  },
+  "cicd_files_scanned": "Workflow files scanned",
+  "cicd_findings_label": "Issues detected",
+  "deps_scanned": "Scanned",
+  "deps_vulnerable": "Vulnerable",
+  "deps_unpinned": "Unpinned",
+  "deps_ok": "OK",
+  "deps_warnings_title": "Warnings",
+  "deps_findings_title": "Issues detected",
+  "deps_warn_no_distribution": "Dependency incompatible with the audit .venv Python version. CVE scan was interrupted.",
+  "deps_warn_no_distribution_fix": "Update the dependency to a compatible version, or run pip-audit with a Python version compatible with the project.",
+  "deps_warn_timeout": "Scan exceeded the timeout (120s).",
+  "deps_warn_timeout_fix": "Check your network connection or reduce the number of dependencies.",
+  "deps_warn_tool_missing_fix": "Install the indicated tool to enable CVE scanning.",
+  "deps_warn_generic_fix": "Check the dependency file and rerun the audit.",
+  "validation_count": "passed check(s)",
+  "rules": {
+    "hardcoded_secret": {
+      "name": "Hardcoded secret",
+      "risk": "Plain text secrets in code can be exposed via Git repository.",
+      "solution": "Use environment variables or system_configs in database.",
+      "benefit": "Protected secrets, easier rotation."
+    },
+    "weak_crypto": {
+      "name": "Weak cryptographic algorithm",
+      "risk": "MD5 and SHA1 are vulnerable to collisions and must not be used for secure hashing.",
+      "solution": "Use SHA-256/SHA-512 for hashing, bcrypt/argon2 for passwords.",
+      "benefit": "Resistance to collision and brute-force attacks (CWE-328)."
+    },
+    "insecure_random": {
+      "name": "Insecure RNG",
+      "risk": "Math.random() is predictable and must not be used for tokens, OTPs or keys.",
+      "solution": "Use crypto.getRandomValues() or crypto.randomUUID() for sensitive values.",
+      "benefit": "Unpredictable tokens and keys, resistant to attacks (CWE-330)."
+    },
+    "img_no_alt": {
+      "name": "Image without alt text",
+      "risk": "Images without alternative text are inaccessible to screen readers and visually impaired users.",
+      "solution": "Add a descriptive alt attribute on every <img> tag.",
+      "benefit": "WCAG 1.1.1 compliance — accessible non-text content."
+    },
+    "focus_outline_removed": {
+      "name": "Focus outline removed",
+      "risk": "Removing the outline prevents keyboard users from seeing which element has focus.",
+      "solution": "Do not remove outline. If the default style is unsuitable, replace it with a visible alternative.",
+      "benefit": "WCAG 2.4.7 compliance — focus always visible for keyboard navigation."
+    },
+    "unpinned_action_version": {
+      "name": "Unpinned action version",
+      "risk": "Referencing actions by mutable tag (v1, main) exposes the pipeline to tag-hijacking supply chain attacks.",
+      "solution": "Pin actions to a full commit SHA (40 hex chars). Add a comment with the version for readability.",
+      "benefit": "Immunity against tag-hijacking attacks like the Codecov/tj-actions incidents (OWASP CI-CD-09)."
+    },
+    "hardcoded_secret_cicd": {
+      "name": "Hardcoded secret in CI/CD configuration",
+      "risk": "A secret value (password, token, API key) is hardcoded directly in the CI/CD configuration file and exposed to all repository contributors.",
+      "solution": "Move secrets to your CI/CD platform's secret store (GitHub Secrets, GitLab CI Variables) and reference them via environment variables.",
+      "benefit": "Eliminates credential exposure in version control history and CI/CD logs (OWASP CI-CD-04, CWE-798)."
+    },
+    "docker_latest_tag": {
+      "name": "Docker image with :latest tag",
+      "risk": "Using the :latest Docker image tag in CI/CD pipelines causes unpredictable builds as the referenced image may change without notice.",
+      "solution": "Pin Docker images to a specific version tag or digest (e.g., node:20.11-alpine or node@sha256:...).",
+      "benefit": "Ensures reproducible and secure builds by preventing silent image upgrades in the CI/CD pipeline."
+    },
+    "ci_docker_privileged": {
+      "name": "Privileged Docker container in CI/CD",
+      "risk": "Running a CI/CD container with privileged mode grants full access to the host kernel, devices, and namespaces — equivalent to root on the host system.",
+      "solution": "Remove the --privileged flag. Use specific Linux capabilities (--cap-add) only for exact functionality required.",
+      "benefit": "Prevents container escape attacks and limits blast radius of a compromised CI/CD job to the container."
+    },
+    "unsafe_deserialization_java": {
+      "name": "Unsafe deserialization (Java)",
+      "risk": "ObjectInputStream.readObject() without validation allows arbitrary code running.",
+      "solution": "Use ObjectInputFilter (Java 9+) or a whitelist of allowed classes. Prefer JSON/XML serialization.",
+      "benefit": "Protection against deserialization attacks (OWASP A08, CWE-502)."
+    },
+    "weak_crypto_java": {
+      "name": "Weak cryptography (Java)",
+      "risk": "MD5 and SHA-1 are cryptographically broken — vulnerable to collision attacks.",
+      "solution": "Use SHA-256 or SHA-3 (MessageDigest.getInstance(\"SHA-256\")). For passwords, use BCrypt/Argon2.",
+      "benefit": "Strong cryptographic hashing (OWASP A02, CWE-328)."
+    },
+    "weak_random_java": {
+      "name": "Weak random (Java)",
+      "risk": "java.util.Random is predictable — tokens, sessions, and keys generated with it can be guessed.",
+      "solution": "Use java.security.SecureRandom for all security-sensitive random generation.",
+      "benefit": "Unpredictable token/key generation (OWASP A02, CWE-330)."
+    },
+    "unsafe_deserialization_csharp": {
+      "name": "Unsafe deserialization (C#)",
+      "risk": "BinaryFormatter and TypeNameHandling.All allow arbitrary code running via crafted payloads.",
+      "solution": "Use System.Text.Json or Newtonsoft.Json with TypeNameHandling.None. Never use BinaryFormatter (CA2300).",
+      "benefit": "Protection against deserialization attacks (OWASP A08, CWE-502, SCS0028)."
+    },
+    "weak_crypto_csharp": {
+      "name": "Weak cryptography (C#)",
+      "risk": "MD5, SHA1, DES, TripleDES and ECB mode are cryptographically broken.",
+      "solution": "Use SHA256, SHA512, or AES-GCM. For passwords, use BCrypt/Argon2/PBKDF2.",
+      "benefit": "Strong cryptographic operations (OWASP A02, CWE-328, SCS0006/CA5350)."
+    },
+    "weak_random_csharp": {
+      "name": "Weak random (C#)",
+      "risk": "System.Random is predictable — tokens, sessions, and keys generated with it can be guessed.",
+      "solution": "Use RandomNumberGenerator (System.Security.Cryptography) for security-sensitive random generation.",
+      "benefit": "Unpredictable token/key generation (OWASP A02, CWE-330, SCS0005)."
+    },
+    "unsafe_deserialization_php": {
+      "name": "Unsafe deserialization (PHP)",
+      "risk": "unserialize() with untrusted data allows PHP Object Injection attacks.",
+      "solution": "Use json_decode() instead. If unserialize is required, use allowed_classes option.",
+      "benefit": "Protection against object injection attacks (OWASP A08, CWE-502)."
+    },
+    "insecure_cookie": {
+      "name": "Insecure cookie (missing HttpOnly/Secure)",
+      "risk": "Cookies without HttpOnly are accessible via JavaScript (XSS). Without Secure, they are sent over unencrypted HTTP (CWE-614, OWASP A05).",
+      "solution": "Always set HttpOnly=True and Secure=True on session and authentication cookies.",
+      "benefit": "Cookies protected against XSS theft and network interception."
+    },
+    "weak_crypto_php": {
+      "name": "Weak cryptography (PHP)",
+      "risk": "md5()/sha1() are cryptographically broken — vulnerable to collision and rainbow table attacks.",
+      "solution": "Use password_hash() with PASSWORD_BCRYPT or PASSWORD_ARGON2ID for passwords.",
+      "benefit": "Strong password hashing (OWASP A02, CWE-328)."
+    },
+    "weak_random_php": {
+      "name": "Weak random (PHP)",
+      "risk": "rand()/mt_rand() are predictable — tokens and keys generated with them can be guessed.",
+      "solution": "Use random_bytes() or random_int() for security-sensitive random generation.",
+      "benefit": "Unpredictable token/key generation (OWASP A02, CWE-330)."
+    },
+    "missing_mfa_python": {
+      "name": "Missing MFA (Python)",
+      "risk": "Authentication without multi-factor authentication exposes accounts to credential theft (CWE-308).",
+      "solution": "Integrate pyotp or django-otp for TOTP-based two-factor authentication.",
+      "benefit": "Stronger authentication, reduced risk of account compromise."
+    },
+    "missing_mfa_java": {
+      "name": "Missing MFA (Java)",
+      "risk": "Authentication without multi-factor authentication exposes accounts to credential theft (CWE-308).",
+      "solution": "Integrate a TOTP library (dev.samstevens.totp, Google Authenticator) for two-factor authentication.",
+      "benefit": "Stronger authentication, reduced risk of account compromise."
+    },
+    "missing_mfa_csharp": {
+      "name": "Missing MFA (C#)",
+      "risk": "Authentication without multi-factor authentication exposes accounts to credential theft (CWE-308).",
+      "solution": "Enable ASP.NET Identity TwoFactorSignInAsync or integrate a TOTP library.",
+      "benefit": "Stronger authentication, reduced risk of account compromise."
+    },
+    "missing_mfa_javascript": {
+      "name": "Missing MFA (JavaScript)",
+      "risk": "Authentication without multi-factor authentication exposes accounts to credential theft (CWE-308).",
+      "solution": "Integrate speakeasy or otplib for TOTP-based two-factor authentication.",
+      "benefit": "Stronger authentication, reduced risk of account compromise."
+    },
+    "missing_mfa_php": {
+      "name": "Missing MFA (PHP)",
+      "risk": "Authentication without multi-factor authentication exposes accounts to credential theft (CWE-308).",
+      "solution": "Integrate google2fa or pragmarx/google2fa-laravel for TOTP-based two-factor authentication.",
+      "benefit": "Stronger authentication, reduced risk of account compromise."
+    },
+    "dockerfile_root_user": {
+      "name": "Dockerfile runs as root",
+      "risk": "Container runs as root user by default, increasing blast radius if compromised (CWE-250).",
+      "solution": "Add a USER directive with a non-root user (e.g., USER appuser) after installing dependencies.",
+      "benefit": "Principle of least privilege, reduced container escape risk."
+    },
+    "dockerfile_unpinned_base": {
+      "name": "Unpinned base image",
+      "risk": "Base image without version tag (FROM node) pulls latest, causing non-reproducible builds and potential supply chain issues.",
+      "solution": "Pin base image to a specific version or digest (e.g., FROM node:20-alpine or FROM node@sha256:...).",
+      "benefit": "Reproducible builds, protection against supply chain attacks."
+    },
+    "dockerfile_copy_all": {
+      "name": "COPY . . in Dockerfile",
+      "risk": "COPY . . copies the entire build context including potential secrets (.env, credentials, SSH keys).",
+      "solution": "Use a .dockerignore file and copy only required files/directories explicitly.",
+      "benefit": "Smaller image, no accidental secret exposure in container layers."
+    },
+    "missing_sri": {
+      "name": "Missing Subresource Integrity",
+      "risk": "External scripts or stylesheets loaded without integrity attribute can be tampered with if the CDN is compromised (CWE-353).",
+      "solution": "Add integrity attribute with SHA-256/384/512 hash and crossorigin='anonymous' to external script and link tags.",
+      "benefit": "Ensures external resources have not been tampered with, protects against CDN compromise."
+    },
+    "prototype_pollution": {
+      "name": "Prototype pollution",
+      "risk": "Object.assign or __proto__ with user data allows modifying the global prototype and injecting properties (CWE-1321).",
+      "solution": "Use Object.create(null) or Map, validate keys with a whitelist.",
+      "benefit": "Protection against property injection on all objects."
+    },
+    "inline_event_handler_html": {
+      "name": "Inline event handler in HTML",
+      "risk": "on* attributes in HTML execute JavaScript directly, vulnerable to XSS (CWE-79).",
+      "solution": "Move JavaScript to separate .js files with addEventListener().",
+      "benefit": "HTML/JS separation and XSS protection."
+    },
+    "html_no_lang": {
+      "name": "HTML missing lang attribute",
+      "risk": "Screen readers cannot determine the page language, affecting pronunciation.",
+      "solution": "Add lang attribute to the html element: <html lang=\"en\">.",
+      "benefit": "Correct pronunciation for screen reader users."
+    },
+    "missing_doctype": {
+      "name": "Missing DOCTYPE declaration",
+      "risk": "Browser renders in quirks mode, causing inconsistent layout and behavior.",
+      "solution": "Add <!DOCTYPE html> as the first line of the HTML document.",
+      "benefit": "Consistent rendering across all browsers."
+    },
+    "weak_random_python": {
+      "name": "Weak random number generator",
+      "risk": "random module is not cryptographically secure; predictable values enable attacks.",
+      "solution": "Use secrets module for security-sensitive operations: secrets.token_hex().",
+      "benefit": "Cryptographically secure random values for tokens and keys."
+    },
+    "insecure_cookie_flag": {
+      "name": "Insecure Cookie Flag",
+      "risk": "Cookie with Secure flag set to false is transmitted over unencrypted HTTP connections (CWE-614).",
+      "solution": "Set cookie.setSecure(true) to ensure cookies are only sent over HTTPS.",
+      "benefit": "Reduces attack surface and strengthens application security."
+    },
+    "taint_codeinj": {
+      "name": "Taint Code Injection",
+      "risk": "An attacker can execute arbitrary Python code on the server.",
+      "solution": "Replace dynamic execution with ast.literal_eval() for data parsing, or use a whitelist of allowed operations.",
+      "benefit": "Reduces attack surface and strengthens application security."
+    },
+    "taint_deserialization": {
+      "name": "Taint Deserialization",
+      "risk": "An attacker can achieve remote code execution by sending crafted serialized Java objects.",
+      "solution": "Use ObjectInputFilter (Java 9+) or ValidatingObjectInputStream from Apache Commons.",
+      "benefit": "Reduces attack surface and strengthens application security."
+    },
+    "taint_ldap": {
+      "name": "Taint LDAP Injection",
+      "risk": "An attacker can modify LDAP queries to bypass authentication or extract data.",
+      "solution": "Use LdapEncoder.filterEncode() to sanitize input before LDAP queries.",
+      "benefit": "Reduces attack surface and strengthens application security."
+    },
+    "taint_open_redirect": {
+      "name": "Taint Open Redirect",
+      "risk": "An attacker can redirect users to a malicious site via a crafted URL.",
+      "solution": "Validate redirect targets against an allowlist. Use url_for() for internal redirects.",
+      "benefit": "Reduces attack surface and strengthens application security."
+    },
+    "taint_path_traversal": {
+      "name": "Taint Path Traversal",
+      "risk": "An attacker can read or write arbitrary files on the server.",
+      "solution": "Use path.basename() and validate the resolved path stays within the allowed directory.",
+      "benefit": "Reduces attack surface and strengthens application security."
+    },
+    "taint_rce": {
+      "name": "Taint RCE",
+      "risk": "An attacker can execute arbitrary commands.",
+      "solution": "Avoid Runtime.exec with user input; use ProcessBuilder with argument lists.",
+      "benefit": "Reduces attack surface and strengthens application security."
+    },
+    "taint_sqli": {
+      "name": "Taint SQL Injection",
+      "risk": "An attacker can read, modify, or delete database records.",
+      "solution": "Use parameterized queries with placeholders (%s, ?).",
+      "benefit": "Reduces attack surface and strengthens application security."
+    },
+    "taint_xpathi": {
+      "name": "Taint XPath Injection",
+      "risk": "An attacker can manipulate XPath queries to bypass authentication or extract XML data.",
+      "solution": "Use parameterized XPath queries with variables parameter, or validate/escape user input.",
+      "benefit": "Reduces attack surface and strengthens application security."
+    },
+    "taint_xss": {
+      "name": "Taint XSS",
+      "risk": "An attacker can inject malicious scripts that execute in other users' browsers.",
+      "solution": "Escape all user input before rendering in HTML. Use framework auto-escaping or html.escape().",
+      "benefit": "Reduces attack surface and strengthens application security."
+    },
+    "taint_xxe": {
+      "name": "Taint XXE",
+      "risk": "An attacker can read local files, perform SSRF, or cause DoS via malicious XML.",
+      "solution": "Disable external entity processing: setFeature(DISALLOW_DOCTYPE, true).",
+      "benefit": "Reduces attack surface and strengthens application security."
+    },
+    "hardcoded_connection_string_java": {
+      "name": "Hardcoded DB credentials (Java)",
+      "risk": "A JDBC connection uses a hardcoded password literal or embedded credentials in the URL. Credentials in source code appear in version control history (CWE-798).",
+      "solution": "Read credentials from environment variables: System.getenv(\"DB_PASSWORD\"). In Spring Boot, use ${DB_PASSWORD} in application.properties backed by environment variables.",
+      "benefit": "Prevents database credential exposure via source code and version control history (OWASP A02, CWE-798)."
+    },
+    "hardcoded_connection_string_php": {
+      "name": "Hardcoded DB credentials (PHP)",
+      "risk": "A database connection uses a hardcoded password literal as a direct argument to PDO, mysqli, or mysql_connect. Credentials in source code appear in version control history (CWE-798).",
+      "solution": "Read the password from environment variables: getenv('DB_PASSWORD'). Use vlucas/phpdotenv for .env files. Never commit .env files to version control.",
+      "benefit": "Prevents database credential exposure via source code and version control history (OWASP A02, CWE-798)."
+    }
+  },
+  "compliance_applicability_label": "SAST applicability rate",
+  "compliance_applicability_unit": "testable",
+  "compliance_clean_label": "Compliance among testable",
+  "compliance_clean_unit": "clean",
+  "compliance_shared_label": "Common core compliance (shared with other frameworks)",
+  "compliance_specific_label": "Framework-specific compliance (differentiating value)",
+  "compliance_na_label": "N/A",
+  "compliance": {
+    "title": "ISO 27001 Compliance Matrix",
+    "subtitle": "Mapping of audit findings to ISO/IEC 27001:2022 Annex A controls.",
+    "disclaimer": "This matrix shows which Annex A controls are testable by static code analysis. It does not certify full compliance with ISO 27001 — organizational, physical and procedural controls require separate assessment.",
+    "coverage_label": "Annex A Coverage",
+    "controls_covered": "controls covered",
+    "col_control": "Control",
+    "col_name": "Name",
+    "col_status": "Status",
+    "col_findings": "Findings",
+    "col_rules": "Rules",
+    "status_covered": "Covered",
+    "status_not_covered": "Not applicable",
+    "status_findings": "Issues found",
+    "themes": {
+      "organizational": "Organizational Controls (A.5)",
+      "people": "People Controls (A.6)",
+      "physical": "Physical Controls (A.7)",
+      "technological": "Technological Controls (A.8)"
+    }
+  },
+  "asvs": {
+    "title": "OWASP ASVS v5.0.0 Compliance",
+    "subtitle": "Mapping of audit findings to OWASP ASVS v5.0.0 requirements.",
+    "disclaimer": "This matrix shows which ASVS requirements are testable by static code analysis (~24% SAST ceiling). It does not certify full ASVS compliance — runtime, infrastructure and procedural requirements need separate assessment.",
+    "coverage_label": "ASVS Coverage",
+    "requirements_covered": "requirements covered",
+    "col_requirement": "Requirement",
+    "col_name": "Name",
+    "col_level": "Level",
+    "col_status": "Status",
+    "col_findings": "Findings",
+    "col_rules": "Rules",
+    "status_covered": "Covered",
+    "status_not_covered": "Not applicable",
+    "status_findings": "Issues found"
+  },
+  "sla": {
+    "title": "SLA by Severity",
+    "description": "Recommended response times for remediation based on finding severity.",
+    "col_severity": "Severity",
+    "col_delay": "Max Delay",
+    "col_escalation": "Escalation"
+  },
+  "glossary": {
+    "title": "Glossary",
+    "subtitle": "Acronyms and technical terms used in this report.",
+    "col_acronym": "Acronym",
+    "col_meaning": "Meaning",
+    "col_description": "Description",
+    "acronyms": {
+      "api": {
+        "term": "API",
+        "full": "Application Programming Interface",
+        "desc": "Communication interface between software systems."
+      },
+      "aria": {
+        "term": "ARIA",
+        "full": "Accessible Rich Internet Applications",
+        "desc": "HTML attributes that improve accessibility for assistive technologies."
+      },
+      "asvs": {
+        "term": "ASVS",
+        "full": "Application Security Verification Standard",
+        "desc": "OWASP standard defining security requirements for web applications across 3 verification levels (L1/L2/L3)."
+      },
+      "cors": {
+        "term": "CORS",
+        "full": "Cross-Origin Resource Sharing",
+        "desc": "Security mechanism controlling HTTP requests between different domains."
+      },
+      "csp": {
+        "term": "CSP",
+        "full": "Content Security Policy",
+        "desc": "HTTP header restricting allowed content sources on a web page."
+      },
+      "csrf": {
+        "term": "CSRF",
+        "full": "Cross-Site Request Forgery",
+        "desc": "Attack that forces an authenticated user to perform unwanted actions."
+      },
+      "css": {
+        "term": "CSS",
+        "full": "Cascading Style Sheets",
+        "desc": "Language for styling and formatting web pages."
+      },
+      "cve": {
+        "term": "CVE",
+        "full": "Common Vulnerabilities and Exposures",
+        "desc": "Unique identifier for a known security vulnerability."
+      },
+      "cvss": {
+        "term": "CVSS",
+        "full": "Common Vulnerability Scoring System",
+        "desc": "Vulnerability severity rating system (score from 0 to 10)."
+      },
+      "cwe": {
+        "term": "CWE",
+        "full": "Common Weakness Enumeration",
+        "desc": "Standardized catalog of software weakness types."
+      },
+      "dom": {
+        "term": "DOM",
+        "full": "Document Object Model",
+        "desc": "Tree representation of an HTML document in memory."
+      },
+      "dry": {
+        "term": "DRY",
+        "full": "Don't Repeat Yourself",
+        "desc": "Design principle that avoids code duplication."
+      },
+      "gdpr": {
+        "term": "GDPR",
+        "full": "General Data Protection Regulation",
+        "desc": "European regulation on personal data protection."
+      },
+      "html": {
+        "term": "HTML",
+        "full": "HyperText Markup Language",
+        "desc": "Markup language for structuring web pages."
+      },
+      "http": {
+        "term": "HTTP/HTTPS",
+        "full": "HyperText Transfer Protocol (Secure)",
+        "desc": "Web communication protocol. HTTPS adds encryption via TLS."
+      },
+      "i18n": {
+        "term": "i18n",
+        "full": "Internationalization",
+        "desc": "Adapting software to support multiple languages and regions."
+      },
+      "iso27001": {
+        "term": "ISO 27001",
+        "full": "ISO/IEC 27001:2022",
+        "desc": "International standard for information security management systems (ISMS). Annex A defines 93 controls across 4 themes."
+      },
+      "js": {
+        "term": "JS",
+        "full": "JavaScript",
+        "desc": "Programming language primarily used for web development."
+      },
+      "json": {
+        "term": "JSON",
+        "full": "JavaScript Object Notation",
+        "desc": "Lightweight data interchange format."
+      },
+      "jwt": {
+        "term": "JWT",
+        "full": "JSON Web Token",
+        "desc": "Signed authentication token in JSON format, used for sessions."
+      },
+      "md5": {
+        "term": "MD5",
+        "full": "Message Digest 5",
+        "desc": "Obsolete and insecure hashing algorithm — should no longer be used."
+      },
+      "orm": {
+        "term": "ORM",
+        "full": "Object-Relational Mapping",
+        "desc": "Abstraction layer between object code and relational databases."
+      },
+      "owasp": {
+        "term": "OWASP",
+        "full": "Open Web Application Security Project",
+        "desc": "Global reference for web application security best practices."
+      },
+      "rgpd": {
+        "term": "RGPD",
+        "full": "Règlement Général sur la Protection des Données",
+        "desc": "European data protection regulation (French name for GDPR)."
+      },
+      "sast": {
+        "term": "SAST",
+        "full": "Static Application Security Testing",
+        "desc": "Source code security analysis without running the application."
+      },
+      "sca": {
+        "term": "SCA",
+        "full": "Static Code Audit",
+        "desc": "Abbreviation for StaticCodeAudit, the tool that generated this report."
+      },
+      "sarif": {
+        "term": "SARIF",
+        "full": "Static Analysis Results Interchange Format",
+        "desc": "Standardized JSON format (OASIS) for exchanging static analysis results between tools and CI/CD systems."
+      },
+      "sbom": {
+        "term": "SBOM",
+        "full": "Software Bill of Materials",
+        "desc": "Comprehensive inventory of software components and dependencies in a project (CycloneDX format)."
+      },
+      "sha1": {
+        "term": "SHA-1",
+        "full": "Secure Hash Algorithm 1",
+        "desc": "Obsolete hashing algorithm — vulnerable to collision attacks."
+      },
+      "sql": {
+        "term": "SQL",
+        "full": "Structured Query Language",
+        "desc": "Query language for relational databases."
+      },
+      "ssrf": {
+        "term": "SSRF",
+        "full": "Server-Side Request Forgery",
+        "desc": "Attack forcing a server to make requests to internal resources."
+      },
+      "svg": {
+        "term": "SVG",
+        "full": "Scalable Vector Graphics",
+        "desc": "XML-based vector image format for the web."
+      },
+      "tls": {
+        "term": "TLS",
+        "full": "Transport Layer Security",
+        "desc": "Network communication encryption protocol (successor to SSL)."
+      },
+      "toctou": {
+        "term": "TOCTOU",
+        "full": "Time-of-Check to Time-of-Use",
+        "desc": "Race condition vulnerability between checking and using a resource."
+      },
+      "wcag": {
+        "term": "WCAG",
+        "full": "Web Content Accessibility Guidelines",
+        "desc": "W3C web accessibility guidelines — international standard."
+      },
+      "xss": {
+        "term": "XSS",
+        "full": "Cross-Site Scripting",
+        "desc": "Injection of malicious scripts into a web page viewed by other users."
+      },
+      "cicd": {
+        "term": "CI/CD",
+        "full": "Continuous Integration / Continuous Deployment",
+        "desc": "Automated pipeline that builds, tests and deploys code on every change."
+      },
+      "cli": {
+        "term": "CLI",
+        "full": "Command Line Interface",
+        "desc": "Text-based interface used to interact with a program via a terminal."
+      },
+      "fixture": {
+        "term": "Fixture",
+        "full": "Test Fixture",
+        "desc": "Code sample (vulnerable or clean) used to validate that a detection rule fires correctly."
+      },
+      "hsts": {
+        "term": "HSTS",
+        "full": "HTTP Strict Transport Security",
+        "desc": "HTTP header that forces browsers to use HTTPS only, preventing downgrade attacks."
+      },
+      "idor": {
+        "term": "IDOR",
+        "full": "Insecure Direct Object Reference",
+        "desc": "Access control flaw where an attacker can access resources by manipulating identifiers."
+      },
+      "jndi": {
+        "term": "JNDI",
+        "full": "Java Naming and Directory Interface",
+        "desc": "Java API used for directory services; exploited in Log4Shell (CVE-2021-44228) for RCE."
+      },
+      "ldap": {
+        "term": "LDAP",
+        "full": "Lightweight Directory Access Protocol",
+        "desc": "Protocol for accessing and maintaining directory services (user accounts, etc.)."
+      },
+      "mfa": {
+        "term": "MFA",
+        "full": "Multi-Factor Authentication",
+        "desc": "Authentication requiring two or more verification factors (password + OTP, etc.)."
+      },
+      "nosql": {
+        "term": "NoSQL",
+        "full": "Not only SQL",
+        "desc": "Non-relational databases (MongoDB, Redis, etc.) vulnerable to injection if queries are unsanitised."
+      },
+      "pii": {
+        "term": "PII",
+        "full": "Personally Identifiable Information",
+        "desc": "Any data that can identify an individual (name, email, SSN, etc.). Must be protected under GDPR."
+      },
+      "rce": {
+        "term": "RCE",
+        "full": "Remote Code Execution",
+        "desc": "Critical vulnerability allowing an attacker to execute arbitrary code on the server."
+      },
+      "sla": {
+        "term": "SLA",
+        "full": "Service Level Agreement",
+        "desc": "Commitment defining maximum resolution times per severity (e.g. CRITICAL: 24h, HIGH: 72h)."
+      },
+      "smtp": {
+        "term": "SMTP",
+        "full": "Simple Mail Transfer Protocol",
+        "desc": "Standard protocol for sending emails; injection vulnerabilities can allow email spoofing."
+      },
+      "ssh": {
+        "term": "SSH",
+        "full": "Secure Shell",
+        "desc": "Cryptographic protocol for secure remote access to servers."
+      },
+      "ssl": {
+        "term": "SSL",
+        "full": "Secure Sockets Layer",
+        "desc": "Deprecated predecessor of TLS. Its use indicates an outdated and insecure configuration."
+      },
+      "ssti": {
+        "term": "SSTI",
+        "full": "Server-Side Template Injection",
+        "desc": "Injection of malicious code into a server-side template engine, potentially leading to RCE."
+      },
+      "taint": {
+        "term": "Taint",
+        "full": "Taint Analysis",
+        "desc": "Data-flow tracking technique that follows untrusted input (source) to sensitive operations (sink) to detect injection vulnerabilities."
+      },
+      "url": {
+        "term": "URL",
+        "full": "Uniform Resource Locator",
+        "desc": "Web address that identifies a resource on a network (e.g. https://example.com/path)."
+      },
+      "xml": {
+        "term": "XML",
+        "full": "eXtensible Markup Language",
+        "desc": "Structured data format widely used in configuration files, APIs, and document exchange."
+      },
+      "xpath": {
+        "term": "XPath",
+        "full": "XML Path Language",
+        "desc": "Query language for XML documents; injection can allow unauthorized data access."
+      },
+      "xxe": {
+        "term": "XXE",
+        "full": "XML External Entity",
+        "desc": "XML injection attack that exploits external entity processing to read files or trigger SSRF."
+      }
+    }
+  },
+  "demo_banner": "DEMO MODE — Full license required for complete usage — <a href=\"mailto:support@codefixture.com\">support@codefixture.com</a>",
+  "demo_watermark": "DEMO",
+  "demo_footer": "This report was generated in demo mode. Number of files and categories are limited. Contact support@codefixture.com for a license.",
+  "exec_high_risk": "High risks",
+  "exec_medium_risk": "Moderate risks",
+  "exec_low_risk": "Low priority items",
+  "exec_trend": "Trend",
+  "exec_recommendations": "Priority recommendations",
+  "exec_first_audit": "First audit — baseline created",
+  "exec_new_issues": "new issues",
+  "exec_resolved": "resolved",
+  "exec_persistent": "persistent",
+  "exec_rec_high": "Fix the {count} high-risk vulnerabilities as a priority — short-term exploitation risk",
+  "exec_rec_high_ranked": "Fix the {count} high-risk vulnerabilities as a priority — short-term exploitation risk. Fix first: {rules}.",
+  "priority_occurrences_label": "occurrence(s)",
+  "priority_taint_verified_label": "verified exploitation flow",
+  "exec_rec_taint": "Vulnerabilities with verified exploitation path — absolute priority",
+  "exec_rec_medium": "Plan correction of moderate risks in the next sprint",
+  "exec_rec_medium_low": "Moderate risks to address progressively",
+  "exec_rec_health_critical": "Critical health score — urgent intervention recommended",
+  "exec_rec_health_warning": "Health score improving — maintain correction effort",
+  "exec_rec_good": "Good security level — maintain best practices",
+  "taint_trace_summary": "Data flow path",
+  "taint_entry_point": "Data entry point",
+  "taint_impact_point": "Impact point",
+  "taint_kind_http": "HTTP input",
+  "taint_kind_cli": "CLI argument",
+  "taint_kind_env": "environment variable",
+  "taint_kind_stdin": "keyboard input",
+  "taint_kind_file": "file",
+  "taint_kind_network": "network",
+  "taint_badge_traced": "Traced",
+  "taint_badge_builtin": "Builtin",
+  "taint_badge_custom": "Custom",
+  "suppress_button_title": "Suppress this finding",
+  "suppress_download": "Download",
+  "suppress_copy": "Copy",
+  "suppress_clear": "Clear",
+  "playbook_link": "Playbook",
+  "threat_tte": "Time-to-Exploit (TTE)",
+  "threat_exposure": "Exposure window",
+  "threat_context": "Threat context",
+  "threat_level_critical": "critical",
+  "threat_level_elevated": "elevated",
+  "threat_risk_high_text": "{count} {severity_label} — {tte_label}: 4h (2024). {exposure_label}: 74 days (median MTTR). 28% of vulnerabilities exploited within 24h of disclosure.",
+  "threat_risk_medium_text": "{count} {severity_label} — {exposure_label}: 55 days median. Remediation recommended before next release cycle.",
+  "threat_disclaimer": "General industry statistics (Zero Day Clock), not specific to this codebase.",
+  "threat_source": "Source: Zero Day Clock (zerodayclock.com) — 83,000+ CVEs tracked",
+  "taint_fix_title": "Fix suggestion",
+  "taint_fix_before": "Before",
+  "taint_fix_after": "After",
+  "category_meta": {
+    "SECURITY": {
+      "title": "Security & OWASP",
+      "risk": "Security vulnerabilities allow attackers to steal data, execute malicious code, or compromise the system.",
+      "solution": "Use parameterized queries for SQL, textContent or a secure template system for DOM, and never hardcode secrets.",
+      "benefit": "Immunity against SQL injections, XSS, and OWASP Top 10 compliance."
+    },
+    "ARCH": {
+      "title": "Architecture & Patterns",
+      "risk": "Scattered business logic makes code difficult to test and causes duplication.",
+      "solution": "Centralize logic in Services, keep Routers minimal.",
+      "benefit": "Modular, testable code compliant with best practices."
+    },
+    "UI": {
+      "title": "Interface & Rendering",
+      "risk": "Direct DOM manipulation is slow, insecure and makes debugging difficult.",
+      "solution": "Use a secure template system for all HTML rendering.",
+      "benefit": "Improved performance, XSS security, visual consistency."
+    },
+    "UX": {
+      "title": "User Experience",
+      "risk": "Transient and untranslated notifications frustrate users and reduce accessibility.",
+      "solution": "Translate all user-facing text, make error messages persistent.",
+      "benefit": "Better accessibility, multi-language support, professional UX."
+    },
+    "MAINTENANCE": {
+      "title": "Maintenance & DRY",
+      "risk": "Dead and duplicated code increases cognitive load and the risk of bugs.",
+      "solution": "Remove unused code, share common logic in modules.",
+      "benefit": "Easier maintenance, reduced deliverable size."
+    },
+    "DEPENDENCIES": {
+      "title": "Dependencies",
+      "risk": "Vulnerable or unpinned dependencies expose the project to known attacks.",
+      "solution": "Update vulnerable dependencies and pin exact versions.",
+      "benefit": "Elimination of known CVEs, reproducible builds (OWASP A06)."
+    },
+    "DATABASE": {
+      "title": "PostgreSQL Schema",
+      "risk": "Undetected schema changes can cause runtime errors.",
+      "solution": "Check migrations, update code referencing modified elements.",
+      "benefit": "Schema stability, early detection of breaking changes."
+    },
+    "CICD": {
+      "title": "CI/CD Pipelines",
+      "risk": "Misconfigured CI/CD pipelines expose the project to supply chain attacks.",
+      "solution": "Pin actions by SHA, restrict permissions, validate triggers.",
+      "benefit": "Protection against supply chain attacks (OWASP CI-CD Top 10)."
+    }
+  },
+  "fixtures_nav": "Fixtures",
+  "custom_rules_none": "No custom rules configured",
+  "custom_rules_none_desc": "Custom rules let you detect patterns specific to your codebase. Create your first rule with:",
+  "custom_rules_no_findings": "No findings on this project",
+  "nist": {
+    "title": "NIST CSF 2.0 Compliance",
+    "subtitle": "Coverage matrix for NIST Cybersecurity Framework 2.0 subcategories",
+    "disclaimer": "Coverage indicates which CSF subcategories are checked by SCA rules. Findings indicate detected issues that should be addressed for compliance.",
+    "coverage_label": "CSF Subcategories Coverage",
+    "subcats_covered": "subcategories covered",
+    "col_id": "ID",
+    "col_name": "Subcategory",
+    "col_status": "Status",
+    "col_rules": "Rules",
+    "col_findings": "Findings",
+    "status_covered": "Covered",
+    "status_not_covered": "Not applicable",
+    "status_findings": "Issues found",
+    "functions": {
+      "GV": "Govern",
+      "ID": "Identify",
+      "PR": "Protect",
+      "DE": "Detect",
+      "RS": "Respond",
+      "RC": "Recover"
+    }
+  },
+  "compliance_score": "Compliance Score"
+}

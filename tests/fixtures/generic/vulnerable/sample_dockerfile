@@ -1,0 +1,12 @@
+# @audit-fixture
+# @rule: dockerfile_root_user, dockerfile_unpinned_base, dockerfile_copy_all
+# @category: security
+# @expected: detected
+
+FROM node
+
+WORKDIR /app
+COPY . .
+RUN npm install
+EXPOSE 3000
+CMD ["node", "server.js"]

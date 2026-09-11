@@ -1,0 +1,38 @@
+rule broken_crypto_algorithm
+  language  javascript
+  severity  HIGH
+  category  security
+  confidence 95
+  match
+    pattern  crypto\s*\.\s*createCipher(?:iv)?\s*\(\s*['"](?:des|des-ede|des3|des-cbc|rc2|rc4|bf|blowfish|arcfour)['"]\s*,
+    scope    line
+  end
+  metadata
+    cwe    CWE-327
+  end
+  risk
+    en: DES, 3DES (Triple DES), RC2, RC4, and Blowfish are cryptographically broken or obsolete algorithms — DES has a 56-bit key trivially brute-forceable, RC4 has known statistical biases, and RC2 has known attacks. Using them provides no meaningful confidentiality protection (CWE-327).
+    fr: DES, 3DES (Triple DES), RC2, RC4 et Blowfish sont des algorithmes cryptographiquement casses ou obsoletes — DES a une cle de 56 bits trivialement cassable par force brute, RC4 a des biais statistiques connus, et RC2 a des attaques connues. Les utiliser ne fournit aucune protection de confidentialite significative (CWE-327).
+    es: DES, 3DES, RC2, RC4 y Blowfish son algoritmos criptograficamente rotos u obsoletos (CWE-327).
+    de: DES, 3DES, RC2, RC4 und Blowfish sind kryptografisch gebrochen oder veraltet (CWE-327).
+  end
+  solution
+    en: Use AES-256-GCM (crypto.createCipheriv("aes-256-gcm", key, iv)) for symmetric encryption. AES-256-GCM provides authenticated encryption with a 256-bit key, currently unbroken.
+    fr: Utiliser AES-256-GCM (crypto.createCipheriv("aes-256-gcm", cle, iv)) pour le chiffrement symetrique. AES-256-GCM fournit un chiffrement authentifie avec une cle de 256 bits, actuellement non casse.
+    es: Usar AES-256-GCM para cifrado simetrico. Proporciona cifrado autenticado con clave de 256 bits.
+    de: AES-256-GCM (crypto.createCipheriv("aes-256-gcm", key, iv)) fuer symmetrische Verschluesselung verwenden.
+  end
+  benefit
+    en: Replaces broken/obsolete ciphers with a modern, secure encryption algorithm.
+    fr: Remplace les chiffrements casses/obsoletes par un algorithme de chiffrement moderne et securise.
+    es: Reemplaza cifrados rotos u obsoletos con un algoritmo de cifrado moderno y seguro.
+    de: Ersetzt gebrochene/veraltete Verschluesselungsalgorithmen durch einen modernen, sicheren Algorithmus.
+  end
+  fix_before
+    const cipher = crypto.createCipher("des", key);
+  end
+  fix_after
+    const iv = crypto.randomBytes(12);
+    const cipher = crypto.createCipheriv("aes-256-gcm", key, iv);
+  end
+end

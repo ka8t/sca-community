@@ -1,0 +1,42 @@
+rule missing_mfa_python
+  language  python
+  category  security
+  severity  MEDIUM
+  requires
+    has      (?:(?<!def )(?<!\.)\bauthenticate\s*\(|login\s*\(.*request|PasswordSignInAsync)
+    not_has  (?:\.totp|\.otp|pyotp|two_factor|verify_code|2fa|speakeasy|enable_mfa|mfa_required|MfaService)
+  end
+  metadata
+    cwe    CWE-308
+  end
+  risk
+    en: Authentication without multi-factor authentication exposes accounts to credential theft (CWE-308).
+    fr: Authentification sans double facteur expose les comptes au vol d'identifiants (CWE-308).
+    es: Autenticación sin factor doble expone las cuentas al robo de credenciales (CWE-308).
+    de: Authentifizierung ohne Multi-Faktor-Authentifizierung setzt Konten dem Diebstahl von Anmeldedaten aus (CWE-308).
+  end
+  solution
+    en: Integrate pyotp or django-otp for TOTP-based two-factor authentication.
+    fr: Intégrer pyotp ou django-otp pour l'authentification TOTP à deux facteurs.
+    es: Integrar pyotp o django-otp para autenticación TOTP de dos factores.
+    de: pyotp oder django-otp für TOTP-basierte Zwei-Faktor-Authentifizierung integrieren.
+  end
+  benefit
+    en: Reduces attack surface and strengthens application security.
+    fr: Reduit la surface d'attaque et renforce la securite de l'application.
+    es: Reduce la superficie de ataque y refuerza la seguridad de la aplicacion.
+    de: Reduziert die Angriffsflaeche und staerkt die Anwendungssicherheit.
+  end
+  fix_before
+    def login(request):
+        user = authenticate(username, password)
+        login_user(user)  # no MFA step
+  end
+  fix_after
+    def login(request):
+        user = authenticate(username, password)
+        if user.mfa_enabled:
+            return redirect("/verify-otp")
+        login_user(user)
+  end
+end

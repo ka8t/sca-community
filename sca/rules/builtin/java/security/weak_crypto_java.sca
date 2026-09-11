@@ -1,0 +1,43 @@
+rule weak_crypto_java
+  language  java
+  category  security
+  severity  HIGH
+  match
+    pattern  MessageDigest\.getInstance\s*\(
+    with     (?:\"MD5\"|\"SHA-1\"|\"SHA1\"|\"md5\"|\"sha-1\"|algorithm)
+    scope    context-4
+  end
+  metadata
+    cwe    CWE-327
+  end
+  risk
+    en: MD5 and SHA-1 are cryptographically broken — vulnerable to collision attacks.
+    fr: MD5 et SHA-1 sont cryptographiquement cassés — vulnérables aux attaques par collision.
+    es: MD5 y SHA-1 están criptográficamente rotos — vulnerables a ataques de colisión.
+    de: MD5 und SHA-1 sind kryptografisch gebrochen — anfällig für Kollisionsangriffe.
+  end
+  solution
+    en: Use SHA-256 or SHA-3 (MessageDigest.getInstance("SHA-256")). For passwords, use BCrypt/Argon2.
+    fr: Utiliser SHA-256 ou SHA-3 (MessageDigest.getInstance("SHA-256")). Pour les mots de passe, utiliser BCrypt/Argon2.
+    es: Usar SHA-256 o SHA-3 (MessageDigest.getInstance("SHA-256")). Para contraseñas, usar BCrypt/Argon2.
+    de: SHA-256 oder SHA-3 verwenden (MessageDigest.getInstance("SHA-256")). Für Passwörter BCrypt/Argon2 verwenden.
+  end
+  benefit
+    en: Reduces attack surface and strengthens application security.
+    fr: Reduit la surface d'attaque et renforce la securite de l'application.
+    es: Reduce la superficie de ataque y refuerza la seguridad de la aplicacion.
+    de: Reduziert die Angriffsflaeche und staerkt die Anwendungssicherheit.
+  end
+  fix_before
+    import java.security.MessageDigest;
+    public class Hasher {
+        public byte[] hash(byte[] data) throws Exception {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            return md.digest(data);
+        }
+    }
+  end
+  fix_after
+    Cipher.getInstance("AES/GCM/NoPadding");
+  end
+end

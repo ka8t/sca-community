@@ -1,0 +1,9 @@
+{
+  "brand": {"tool_name": "SCA", "company_name": "CodeFixture", "prefix": "SCA"},
+  "project": {"id": "demo-app-00000000", "name": "demo-app", "version": "1.0"},
+  "languages": ["python"],
+  "paths": {"include": ["."], "exclude": ["node_modules/", ".venv/", "__pycache__/"]},
+  "reports": {"output_dir": "docs/audit-reports", "history_dir": "docs/audit-reports/audit-datas", "language": "en", "max_history": 10},
+  "rules": {"disabled": []},
+  "thresholds": {"max_high": 0, "max_medium": null}
+}

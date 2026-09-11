@@ -1,0 +1,36 @@
+rule focus_outline_removed
+  language  html
+  severity  MEDIUM
+  category  ux
+  match
+    pattern  outline\s*:\s*(?:none|0[^.])
+    scope    line
+  end
+  metadata
+    wcag    2.4.7
+  end
+  risk
+    en: Removing the outline prevents keyboard users from seeing which element has focus.
+    fr: Supprimer l'outline empêche les utilisateurs au clavier de voir quel élément a le focus.
+    es: Eliminar el outline impide a los usuarios de teclado ver qué elemento tiene el foco.
+    de: Das Entfernen des Outlines verhindert, dass Tastaturbenutzer sehen, welches Element den Fokus hat.
+  end
+  solution
+    en: Do not remove outline. If the default style is unsuitable, replace it with a visible alternative.
+    fr: Ne pas supprimer outline. Si le style par défaut ne convient pas, le remplacer par un style visible alternatif.
+    es: No eliminar outline. Si el estilo por defecto no es adecuado, reemplazarlo con una alternativa visible.
+    de: Outline nicht entfernen. Wenn der Standardstil nicht passt, durch eine sichtbare Alternative ersetzen.
+  end
+  benefit
+    en: Improves accessibility and user experience.
+    fr: Ameliore l'accessibilite et l'experience utilisateur.
+    es: Mejora la accesibilidad y la experiencia de usuario.
+    de: Verbessert die Barrierefreiheit und die Benutzererfahrung.
+  end
+  fix_before
+    *:focus { outline: none; }
+  end
+  fix_after
+    *:focus-visible { outline: 2px solid #4A90D9; }
+  end
+end

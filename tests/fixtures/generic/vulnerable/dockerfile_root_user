@@ -1,0 +1,9 @@
+# @audit-fixture
+# @rule: dockerfile_root_user
+# @category: security
+# @expected: detected
+FROM python:3.11-slim
+RUN pip install flask
+COPY . /app
+WORKDIR /app
+CMD ["python", "app.py"]

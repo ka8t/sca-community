@@ -1,0 +1,105 @@
+rule taint_xxe
+  language  python
+  category  security
+  severity  HIGH
+  confidence 85
+  source  request\.(GET|POST|args|form|json|data|query_params|body|cookies|headers)  kind=http
+  source  sys\.stdin  kind=stdin
+  source  request\.query_string  kind=http
+  source  request\.cookies  kind=http
+  source  request\.url  kind=http
+  source  request\.path  kind=http
+  source  request\.remote_addr  kind=http
+  source  request\.user_agent  kind=http
+  source  request\.referrer  kind=http
+  source  request\.content_type  kind=http
+  source  request\.get_json\s*\(  kind=http
+  source  request\.values  kind=http
+  source  request\.cookies\.get\s*\(  kind=http
+  source  request\.cookies\[  kind=http
+  source  request\.form\.getlist\s*\(  kind=http
+  source  request\.args\.getlist\s*\(  kind=http
+  source  wrapped\.get_form_parameter\s*\(  kind=http
+  source  wrapped\.get_query_parameter\s*\(  kind=http
+  source  wrapped\.get_cookie\s*\(  kind=http
+  source  wrapped\.get_header\s*\(  kind=http
+  source  helpers\.utils\.get_parameter\s*\(  kind=http
+  source  helpers\.utils\.get_parameter_list\s*\(  kind=http
+  sink    etree\.parse\s*\(
+  sink    etree\.fromstring\s*\(
+  sink    minidom\.parseString\s*\(
+  sink    sax\.parseString\s*\(
+  sink    XMLParser\s*\(
+  sanitizer  defusedxml
+  sanitizer  resolve_entities.*False
+  sanitizer  no_network.*True
+  sanitizer  \.startswith\s*\(
+  sanitizer  \.endswith\s*\(
+  sanitizer  \.isalnum\s*\(
+  sanitizer  \.isalpha\s*\(
+  sanitizer  re\.match
+  sanitizer  re\.fullmatch
+  passthrough  str\s*\(
+  passthrough  \.strip\s*\(
+  passthrough  \.lstrip\s*\(
+  passthrough  \.rstrip\s*\(
+  passthrough  \.lower\s*\(
+  passthrough  \.upper\s*\(
+  passthrough  \.encode\s*\(
+  passthrough  \.decode\s*\(
+  passthrough  urllib\.parse\.unquote
+  passthrough  urllib\.parse\.quote
+  passthrough  json\.loads
+  passthrough  json\.dumps
+  passthrough  base64\.b64decode
+  passthrough  \.replace\s*\(
+  passthrough  \.format\s*\(
+  passthrough  urllib\.parse\.unquote_plus
+  passthrough  base64\.b64encode
+  passthrough  base64\.urlsafe_b64decode
+  passthrough  base64\.urlsafe_b64encode
+  passthrough  configparser.*\.get\s*\(
+  passthrough  \.encode\s*\(.*utf
+  passthrough  \.decode\s*\(.*utf
+  passthrough  str\.maketrans
+  passthrough  \.translate\s*\(
+  passthrough  \.split\s*\(
+  passthrough  \.join\s*\(
+  passthrough  \[\d+:-?\d*\]
+  passthrough  request_wrapper\s*\(
+  message
+    en: XML External Entity (XXE) — tainted XML data parsed without entity restrictions
+    fr: Entité externe XML (XXE) — données XML non fiables parsées sans restriction d'entités
+  end
+  risk
+    en: An attacker can read local files, perform SSRF, or cause denial of service via malicious XML.
+    fr: Un attaquant peut lire des fichiers locaux, effectuer du SSRF ou provoquer un déni de service via du XML malveillant.
+    es: Un atacante puede leer archivos locales, realizar SSRF o causar denegacion de servicio mediante XML malicioso.
+    de: Ein Angreifer kann lokale Dateien lesen, SSRF durchfuehren oder Denial-of-Service ueber boesartiges XML verursachen.
+  end
+  solution
+    en: Use defusedxml library or disable external entity processing in the XML parser.
+    fr: Utilisez la bibliothèque defusedxml ou désactivez le traitement des entités externes dans le parseur XML.
+    es: Usar la biblioteca defusedxml o desactivar el procesamiento de entidades externas en el parser XML.
+    de: Die defusedxml-Bibliothek verwenden oder die externe Entity-Verarbeitung im XML-Parser deaktivieren.
+  end
+  metadata
+    cwe    CWE-611
+    owasp  A05:2021
+  end
+  benefit
+    en: Reduces attack surface and strengthens application security.
+    fr: Reduit la surface d'attaque et renforce la securite de l'application.
+    es: Reduce la superficie de ataque y refuerza la seguridad de la aplicacion.
+    de: Reduziert die Angriffsflaeche und staerkt die Anwendungssicherheit.
+  end
+  fix_before
+    xml_data = request.data
+    tree = etree.fromstring(xml_data)
+  end
+  fix_after
+    xml_data = request.data
+    parser = etree.XMLParser(resolve_entities=False, no_network=True)
+    tree = etree.fromstring(xml_data, parser=parser)
+  end
+end

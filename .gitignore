@@ -1,0 +1,74 @@
+# OS files
+.DS_Store
+Thumbs.db
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+.eggs/
+dist/
+build/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Reports (generated output)
+reports/
+docs/audit-reports/
+projects/*/SCA-REPORT-*.html
+projects/*/audit-datas/
+projects/*/docs/audit-reports/
+website/audit-reports/
+
+# Artefacts pytest (test_project_management crée projects/testproject-<uuid8>/)
+projects/testproject-*/
+
+# Artefacts générés en lançant l'audit SUR le répertoire de fixtures lui-même
+tests/fixtures/generic/audit.config.json
+tests/fixtures/generic/.github/
+tests/fixtures/generic/.gitlab-ci-audit.yml
+tests/fixtures/generic/docs/audit-reports/
+
+# Local config (keep template only)
+config/audit.config.json
+
+# Local notes / drafts
+docs/todo.*
+docs/*.rtf
+
+# Backups
+*.old
+*.bak
+
+# macOS Finder duplicates (safety net)
+* 2.py
+* 2.js
+* 2.html
+* 2.java
+* 2.php
+* 2.cs
+* 2.json
+
+# Export du benchmark interne (sca/benchmark.py, fixtures internes)
+benchmark-results-*.json
+
+# Credentials (jamais dans git)
+website/.htpasswd
+website/.htpasswd-credentials.txt
+.htpasswd
+.htpasswd-credentials.txt
+
+# D.2 Performance — caches projet (générés à chaque audit)
+.sca-cache/
+
+# Verrou de session du harness Claude Code (transitoire, par session)
+.claude/scheduled_tasks.lock
+# Added by code-review-graph
+.code-review-graph/

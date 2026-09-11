@@ -1,0 +1,36 @@
+rule weak_crypto_php
+  language  php
+  category  security
+  severity  HIGH
+  match
+    pattern  \b(?:md5|sha1)\s*\(\s*\$
+    scope    line
+  end
+  metadata
+    cwe    CWE-327
+  end
+  risk
+    en: md5()/sha1() are cryptographically broken — vulnerable to collision and rainbow table attacks.
+    fr: md5()/sha1() sont cryptographiquement cassés — vulnérables aux attaques par collision.
+    es: md5()/sha1() están criptográficamente rotos — vulnerables a ataques de colisión.
+    de: md5()/sha1() sind kryptografisch gebrochen — anfällig für Kollisionsangriffe.
+  end
+  solution
+    en: Use password_hash() with PASSWORD_BCRYPT or PASSWORD_ARGON2ID for passwords.
+    fr: Utiliser password_hash() avec PASSWORD_BCRYPT ou PASSWORD_ARGON2ID pour les mots de passe.
+    es: Usar password_hash() con PASSWORD_BCRYPT o PASSWORD_ARGON2ID para contraseñas.
+    de: password_hash() mit PASSWORD_BCRYPT oder PASSWORD_ARGON2ID für Passwörter verwenden.
+  end
+  benefit
+    en: Reduces attack surface and strengthens application security.
+    fr: Reduit la surface d'attaque et renforce la securite de l'application.
+    es: Reduce la superficie de ataque y refuerza la seguridad de la aplicacion.
+    de: Reduziert die Angriffsflaeche und staerkt die Anwendungssicherheit.
+  end
+  fix_before
+    $hash = md5($password);
+  end
+  fix_after
+    $hash = password_hash($password, PASSWORD_BCRYPT);
+  end
+end

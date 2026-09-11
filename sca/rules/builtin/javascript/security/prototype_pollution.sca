@@ -1,0 +1,44 @@
+rule prototype_pollution
+  language  javascript
+  category  security
+  severity  HIGH
+  confidence 85
+  match
+    pattern  (__proto__|constructor\s*\[|Object\.assign\s*\([^,]+,\s*(?:req\.|params|body|query)|for\s*\(\s*(?:const|let|var)\s+\w+\s+in\s+)
+    pattern-not  (?:Object\.keys|hasOwnProperty|===\s*['"]__proto__|constructor.*continue)
+    scope    line
+  end
+  metadata
+    cwe    CWE-1321
+  end
+  risk
+    en: Object.assign or __proto__ with user data allows modifying the global prototype and injecting properties (CWE-1321).
+    fr: Object.assign ou __proto__ avec données utilisateur permet de modifier le prototype global et d'injecter des propriétés (CWE-1321).
+    es: Object.assign or __proto__ with user data allows modifying the global prototype and injecting properties (CWE-1321).
+    de: Object.assign or __proto__ with user data allows modifying the global prototype and injecting properties (CWE-1321).
+  end
+  solution
+    en: Use Object.create(null) or Map, validate keys with a whitelist.
+    fr: Utiliser Object.create(null) ou une Map, valider les clés avec un whitelist.
+    es: Use Object.create(null) or Map, validate keys with a whitelist.
+    de: Use Object.create(null) or Map, validate keys with a whitelist.
+  end
+  benefit
+    en: Reduces attack surface and strengthens application security.
+    fr: Reduit la surface d'attaque et renforce la securite de l'application.
+    es: Reduce la superficie de ataque y refuerza la seguridad de la aplicacion.
+    de: Reduziert die Angriffsflaeche und staerkt die Anwendungssicherheit.
+  end
+  fix_before
+    function merge(target, source) {
+        for (const key in source) {
+            target[key] = source[key];
+        }
+    }
+    const payload = JSON.parse(req.body.data);
+    merge({}, payload);
+  end
+  fix_after
+    if (Object.hasOwn(obj, key)) obj[key] = value;
+  end
+end

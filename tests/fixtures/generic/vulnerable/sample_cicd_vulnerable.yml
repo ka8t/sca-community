@@ -1,0 +1,26 @@
+# @audit-fixture
+# Covers: pull_request_target_checkout, gha_expression_injection,
+#          gha_excessive_permissions, gha_unguarded_comment_trigger,
+#          unpinned_action_version
+
+name: CI Pipeline
+
+on:
+  push:
+  pull_request_target:
+  issue_comment:
+    types: [created]
+
+permissions: write-all
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@main
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - uses: actions/setup-node@v3
+      - name: Echo issue title
+        run: echo "${{ github.event.issue.title }}"
+      - run: npm test

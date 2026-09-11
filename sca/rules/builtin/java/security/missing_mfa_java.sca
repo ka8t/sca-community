@@ -1,0 +1,36 @@
+rule missing_mfa_java
+  language  java
+  category  security
+  severity  MEDIUM
+  requires
+    has      (?:UsernamePasswordAuthenticationToken|AuthenticationManager|\.authenticate\s*\()
+    not_has  (?i:\.totp|\.otp|verify_otp|verify_totp|TwoFactorAuth|requiresTwoFactor|GoogleAuthenticator|OtpVerif|MfaService|enable_mfa)
+  end
+  metadata
+    cwe    CWE-308
+  end
+  risk
+    en: Authentication without multi-factor authentication exposes accounts to credential theft (CWE-308).
+    fr: Authentification sans double facteur expose les comptes au vol d'identifiants (CWE-308).
+    es: Autenticación sin factor doble expone las cuentas al robo de credenciales (CWE-308).
+    de: Authentifizierung ohne Multi-Faktor-Authentifizierung setzt Konten dem Diebstahl von Anmeldedaten aus (CWE-308).
+  end
+  solution
+    en: Integrate a TOTP library (dev.samstevens.totp, Google Authenticator) for two-factor authentication.
+    fr: Intégrer une bibliothèque TOTP (dev.samstevens.totp, Google Authenticator).
+    es: Integrar una biblioteca TOTP (dev.samstevens.totp, Google Authenticator).
+    de: Eine TOTP-Bibliothek (dev.samstevens.totp, Google Authenticator) integrieren.
+  end
+  benefit
+    en: Reduces attack surface and strengthens application security.
+    fr: Reduit la surface d'attaque et renforce la securite de l'application.
+    es: Reduce la superficie de ataque y refuerza la seguridad de la aplicacion.
+    de: Reduziert die Angriffsflaeche und staerkt die Anwendungssicherheit.
+  end
+  fix_before
+    if (checkPassword(user, pw)) grant();
+  end
+  fix_after
+    if (checkPassword(user, pw) && verifyTotp(user, code)) grant();
+  end
+end

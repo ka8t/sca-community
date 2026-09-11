@@ -1,0 +1,106 @@
+rule taint_ldap
+  language  python
+  category  security
+  severity  HIGH
+  confidence 85
+  source  request\.(GET|POST|args|form|json|data|query_params|path_params|cookies|headers)  kind=http
+  source  input\s*\(  kind=stdin
+  source  sys\.argv\[  kind=cli
+  source  request\.query_string  kind=http
+  source  request\.cookies  kind=http
+  source  request\.url  kind=http
+  source  request\.path  kind=http
+  source  request\.remote_addr  kind=http
+  source  request\.user_agent  kind=http
+  source  request\.referrer  kind=http
+  source  request\.content_type  kind=http
+  source  request\.get_json\s*\(  kind=http
+  source  request\.values  kind=http
+  source  request\.cookies\.get\s*\(  kind=http
+  source  request\.cookies\[  kind=http
+  source  request\.form\.getlist\s*\(  kind=http
+  source  request\.args\.getlist\s*\(  kind=http
+  source  wrapped\.get_form_parameter\s*\(  kind=http
+  source  wrapped\.get_query_parameter\s*\(  kind=http
+  source  wrapped\.get_cookie\s*\(  kind=http
+  source  wrapped\.get_header\s*\(  kind=http
+  source  helpers\.utils\.get_parameter\s*\(  kind=http
+  source  helpers\.utils\.get_parameter_list\s*\(  kind=http
+  sink    \.search_s\s*\(
+  sink    \.search\s*\(
+  sink    \.modify_s\s*\(
+  sink    ldap\.filter\.filter_format
+  sanitizer  ldap\.filter\.escape_filter_chars
+  sanitizer  ldap3\.utils\.conv\.escape_filter_chars
+  sanitizer  \bescape_filter_chars\s*\(
+  sanitizer  escape_dn_chars
+  sanitizer  \.startswith\s*\(
+  sanitizer  \.endswith\s*\(
+  sanitizer  \.isalnum\s*\(
+  sanitizer  \.isalpha\s*\(
+  sanitizer  re\.match
+  sanitizer  re\.fullmatch
+  passthrough  str\s*\(
+  passthrough  \.strip\s*\(
+  passthrough  \.lstrip\s*\(
+  passthrough  \.rstrip\s*\(
+  passthrough  \.lower\s*\(
+  passthrough  \.upper\s*\(
+  passthrough  \.encode\s*\(
+  passthrough  \.decode\s*\(
+  passthrough  urllib\.parse\.unquote
+  passthrough  urllib\.parse\.quote
+  passthrough  json\.loads
+  passthrough  json\.dumps
+  passthrough  base64\.b64decode
+  passthrough  \.replace\s*\(
+  passthrough  \.format\s*\(
+  passthrough  urllib\.parse\.unquote_plus
+  passthrough  base64\.b64encode
+  passthrough  base64\.urlsafe_b64decode
+  passthrough  base64\.urlsafe_b64encode
+  passthrough  configparser.*\.get\s*\(
+  passthrough  \.encode\s*\(.*utf
+  passthrough  \.decode\s*\(.*utf
+  passthrough  str\.maketrans
+  passthrough  \.translate\s*\(
+  passthrough  \.split\s*\(
+  passthrough  \.join\s*\(
+  passthrough  \[\d+:-?\d*\]
+  passthrough  request_wrapper\s*\(
+  message
+    en: LDAP Injection — tainted data flows into an LDAP query
+    fr: Injection LDAP — données non fiables atteignent une requête LDAP
+  end
+  risk
+    en: An attacker can modify LDAP queries to bypass authentication or extract data.
+    fr: Un attaquant peut modifier les requêtes LDAP pour contourner l'authentification ou extraire des données.
+    es: Un atacante puede modificar consultas LDAP para evadir la autenticacion o extraer datos.
+    de: Ein Angreifer kann LDAP-Abfragen manipulieren, um die Authentifizierung zu umgehen oder Daten zu extrahieren.
+  end
+  solution
+    en: Use ldap.filter.escape_filter_chars() to sanitize user input before LDAP queries.
+    fr: Utilisez ldap.filter.escape_filter_chars() pour assainir les entrées utilisateur avant les requêtes LDAP.
+    es: Usar ldap.filter.escape_filter_chars() para sanear la entrada de usuario antes de consultas LDAP.
+    de: ldap.filter.escape_filter_chars() verwenden, um Benutzereingaben vor LDAP-Abfragen zu bereinigen.
+  end
+  metadata
+    cwe    CWE-90
+    owasp  A03:2021
+  end
+  benefit
+    en: Reduces attack surface and strengthens application security.
+    fr: Reduit la surface d'attaque et renforce la securite de l'application.
+    es: Reduce la superficie de ataque y refuerza la seguridad de la aplicacion.
+    de: Reduziert die Angriffsflaeche und staerkt die Anwendungssicherheit.
+  end
+  fix_before
+    username = request.form["user"]
+    conn.search_s(base, ldap.SCOPE_SUBTREE, f"(uid={username})")
+  end
+  fix_after
+    from ldap.filter import escape_filter_chars
+    username = escape_filter_chars(request.form["user"])
+    conn.search_s(base, ldap.SCOPE_SUBTREE, f"(uid={username})")
+  end
+end

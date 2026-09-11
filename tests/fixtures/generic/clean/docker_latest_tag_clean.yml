@@ -1,0 +1,20 @@
+# @audit-fixture
+# Covers: docker_latest_tag (clean)
+
+stages:
+  - build
+  - test
+
+build:
+  image: node:20.11-alpine
+  stage: build
+  script:
+    - npm ci
+    - npm run build
+
+test:
+  image: python:3.12-slim
+  stage: test
+  script:
+    - pip install -r requirements.txt
+    - pytest

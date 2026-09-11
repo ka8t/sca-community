@@ -1,0 +1,36 @@
+rule docker_latest_tag
+  language  yaml
+  severity  LOW
+  category  cicd
+  match
+    pattern  (?:image|from)\s*:\s*\S+:latest\b
+    scope    line
+  end
+  metadata
+    cwe    CWE-1357
+  end
+  risk
+    en: Using the :latest Docker image tag in CI/CD pipelines causes unpredictable builds as the referenced image may change without notice, potentially introducing breaking changes or vulnerabilities.
+    fr: Utiliser le tag Docker :latest dans les pipelines CI/CD provoque des builds imprévisibles car l'image référencée peut changer sans préavis, introduisant potentiellement des changements cassants ou des vulnérabilités.
+    es: Usar el tag Docker :latest en pipelines CI/CD provoca builds impredecibles ya que la imagen referenciada puede cambiar sin previo aviso, introduciendo potencialmente cambios disruptivos o vulnerabilidades.
+    de: Die Verwendung des :latest Docker-Image-Tags in CI/CD-Pipelines verursacht unvorhersehbare Builds, da das referenzierte Image ohne Vorwarnung geändert werden kann und möglicherweise Breaking Changes oder Schwachstellen einbringt.
+  end
+  solution
+    en: Pin Docker images to a specific version tag or digest (e.g., image: node:20.11-alpine or image: node@sha256:abc123...).
+    fr: Épingler les images Docker à un tag de version spécifique ou un digest (ex : image: node:20.11-alpine ou image: node@sha256:abc123...).
+    es: Fijar las imágenes Docker a un tag de versión específico o digest (ej: image: node:20.11-alpine o image: node@sha256:abc123...).
+    de: Docker-Images auf einen spezifischen Versions-Tag oder Digest pinnen (z.B. image: node:20.11-alpine oder image: node@sha256:abc123...).
+  end
+  benefit
+    en: Ensures reproducible and secure builds by preventing silent image upgrades in the CI/CD pipeline.
+    fr: Garantit des builds reproductibles et sécurisés en empêchant les mises à jour silencieuses d'images dans le pipeline CI/CD.
+    es: Garantiza builds reproducibles y seguros al prevenir actualizaciones silenciosas de imágenes en el pipeline CI/CD.
+    de: Gewährleistet reproduzierbare und sichere Builds, indem stille Image-Upgrades in der CI/CD-Pipeline verhindert werden.
+  end
+  fix_before
+    image: node:latest
+  end
+  fix_after
+    image: node:20.11-alpine
+  end
+end

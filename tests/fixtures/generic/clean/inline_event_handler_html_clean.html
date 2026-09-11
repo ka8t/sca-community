@@ -1,0 +1,6 @@
+<!-- @audit-fixture -->
+<!-- @rule: inline_event_handler_html -->
+<!-- @category: security -->
+<!-- @expected: clean -->
+<button id="btn">Click</button>
+<script>document.getElementById("btn").addEventListener("click", doSomething);</script>

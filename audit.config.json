@@ -1,0 +1,256 @@
+{
+  "brand": {
+    "tool_name": "StaticCodeAudit",
+    "company_name": "CodeFixture",
+    "prefix": "SCA",
+    "logo": null
+  },
+  "project": {
+    "id": "dc383943-933c-4ae4-8eda-90ae425e7f02",
+    "name": "Audit",
+    "version": "1.0.0",
+    "description": ""
+  },
+  "languages": [
+    "python"
+  ],
+  "paths": {
+    "include": [
+      "sca/"
+    ],
+    "exclude": [
+      "**/node_modules/**",
+      "**/__pycache__/**",
+      "**/.venv/**",
+      "**/venv/**",
+      "**/vendor/**",
+      "**/.git/**",
+      "**/dist/**",
+      "**/build/**",
+      "**/fixtures/**",
+      "**/benchmarks/**"
+    ]
+  },
+  "reports": {
+    "output_dir": "docs/audit-reports",
+    "history_dir": "docs/audit-reports/audit-datas",
+    "max_history": 10,
+    "language": "en"
+  },
+  "categories": {
+    "security": {
+      "enabled": true,
+      "weight": 3
+    },
+    "architecture": {
+      "enabled": true,
+      "weight": 2
+    },
+    "ui": {
+      "enabled": true,
+      "weight": 1
+    },
+    "ux": {
+      "enabled": true,
+      "weight": 1
+    },
+    "maintenance": {
+      "enabled": true,
+      "weight": 1
+    },
+    "dependencies": {
+      "enabled": false,
+      "weight": 2
+    }
+  },
+  "rules": {
+    "disabled": [],
+    "custom_patterns": {},
+    "suppress": [
+      {"rule_key": "path_traversal_os_join", "file": "sca/cli.py", "code_hash": null, "reason": "FP: chemins internes (SCRIPT_DIR, os.listdir des fixtures), aucune entrée user"},
+      {"rule_key": "race_condition", "file": "sca/cli.py", "code_hash": null, "reason": "FP: vérifs internes sur arborescence SCA, pas de TOCTOU exploitable"},
+      {"rule_key": "py_too_many_nested_blocks", "file": "sca/cli.py", "code_hash": null, "reason": "Qualité: scanner CLI, complexité acceptable"},
+      {"rule_key": "py_global_statement", "file": "sca/cli.py", "code_hash": null, "reason": "Pattern de cache module-level légitime"},
+      {"rule_key": "py_magic_value_comparison", "file": "sca/cli.py", "code_hash": null, "reason": "Constantes licence (999999 = unlimited)"},
+      {"rule_key": "n_plus_1_query", "file": "sca/cli.py", "code_hash": null, "reason": "FP: 'db.query(' apparaît dans une docstring d'exemple regex"},
+      {"rule_key": "file_too_long", "file": "sca/cli.py", "code_hash": null, "reason": "Qualité: fichier CLI principal, refactor hors scope"},
+      {"rule_key": "path_traversal_os_join", "file": "sca/report.py", "code_hash": null, "reason": "FP: chemins internes (SCRIPT_DIR, templates/, vendor/)"},
+      {"rule_key": "race_condition", "file": "sca/report.py", "code_hash": null, "reason": "FP: vérif existence template interne avant chargement"},
+      {"rule_key": "py_too_many_nested_blocks", "file": "sca/report.py", "code_hash": null, "reason": "Qualité: générateur HTML complexe, refactor hors scope"},
+      {"rule_key": "py_too_many_arguments", "file": "sca/report.py", "code_hash": null, "reason": "Qualité: signature de _build_exec_recommendations légitime"},
+      {"rule_key": "py_magic_value_comparison", "file": "sca/report.py", "code_hash": null, "reason": "Seuils métier (success_rate 100/90)"},
+      {"rule_key": "file_too_long", "file": "sca/report.py", "code_hash": null, "reason": "Qualité: générateur HTML monolithique, refactor hors scope"},
+      {"rule_key": "path_traversal_os_join", "file": "sca/rule_engine.py", "code_hash": null, "reason": "FP: scan interne du root_dir du projet audité"},
+      {"rule_key": "race_condition", "file": "sca/rule_engine.py", "code_hash": null, "reason": "FP: vérif existence répertoire scan interne"},
+      {"rule_key": "py_too_many_nested_blocks", "file": "sca/rule_engine.py", "code_hash": null, "reason": "Qualité: moteur d'exécution règles, complexité intrinsèque"},
+      {"rule_key": "file_too_long", "file": "sca/rule_engine.py", "code_hash": null, "reason": "Qualité: moteur central, refactor hors scope"},
+      {"rule_key": "path_traversal_os_join", "file": "sca/testing.py", "code_hash": null, "reason": "FP: orchestrateur tests, chemins internes (tests_dir, fixtures)"},
+      {"rule_key": "race_condition", "file": "sca/testing.py", "code_hash": null, "reason": "FP: vérifs existence avant lecture fichiers tests internes"},
+      {"rule_key": "path_traversal_os_join", "file": "sca/runner.py", "code_hash": null, "reason": "FP: scan interne (root_dir, include_paths résolus depuis config)"},
+      {"rule_key": "race_condition", "file": "sca/runner.py", "code_hash": null, "reason": "FP: vérifs internes avant lecture fichiers du projet scanné"},
+      {"rule_key": "path_traversal_os_join", "file": "sca/comparison.py", "code_hash": null, "reason": "FP: lecture historique audits dans history_dir interne"},
+      {"rule_key": "race_condition", "file": "sca/comparison.py", "code_hash": null, "reason": "FP: vérifs avant lecture fichiers historique"},
+      {"rule_key": "path_traversal_os_join", "file": "sca/benchmark.py", "code_hash": null, "reason": "FP: outil de benchmark interne, chemins maîtrisés"},
+      {"rule_key": "race_condition", "file": "sca/benchmark.py", "code_hash": null, "reason": "FP: vérifs benchmark sur arborescence interne"},
+      {"rule_key": "path_traversal_os_join", "file": "sca/database.py", "code_hash": null, "reason": "FP: chemins de fichiers data internes (history_dir)"},
+      {"rule_key": "race_condition", "file": "sca/database.py", "code_hash": null, "reason": "FP: vérifs sur fichiers data internes"},
+      {"rule_key": "path_traversal_os_join", "file": "sca/cicd.py", "code_hash": null, "reason": "FP: scan interne workflows YAML, root_dir maîtrisé"},
+      {"rule_key": "race_condition", "file": "sca/cicd.py", "code_hash": null, "reason": "FP: vérif existence workflow CI avant lecture"},
+      {"rule_key": "path_traversal_os_join", "file": "sca/dependencies.py", "code_hash": null, "reason": "FP: scan dépendances dans root_dir interne"},
+      {"rule_key": "race_condition", "file": "sca/dependencies.py", "code_hash": null, "reason": "FP: vérifs avant lecture lockfiles dans root_dir"},
+      {"rule_key": "path_traversal_os_join", "file": "sca/rule_tester.py", "code_hash": null, "reason": "FP: testeur interne de règles, chemins SCA"},
+      {"rule_key": "race_condition", "file": "sca/rule_tester.py", "code_hash": null, "reason": "FP: vérifs sur fixtures de test internes"},
+      {"rule_key": "path_traversal_os_join", "file": "sca/config.py", "code_hash": null, "reason": "FP: chargement config depuis chemin interne"},
+      {"rule_key": "path_traversal_os_join", "file": "sca/executors/file_check.py", "code_hash": null, "reason": "FP: exécuteur file_contains interne, opère sur fichiers du scan"},
+      {"rule_key": "race_condition", "file": "sca/executors/file_check.py", "code_hash": null, "reason": "FP: vérif existence dans pipeline de scan interne"},
+      {"rule_key": "ssrf_python", "file": "sca/ai/llm.py", "code_hash": null, "reason": "FP: URL hardcodée OLLAMA_URL=http://localhost:11434 (constante module), aucune entrée user. Communication 100% locale avec Ollama."},
+      {"rule_key": "py_too_many_nested_blocks", "file": "sca/runner.py", "code_hash": null, "reason": "Qualité: orchestrateur principal, complexité intrinsèque (mixin pattern + 7 catégories)"},
+      {"rule_key": "py_too_many_nested_blocks", "file": "sca/taint_engine.py", "code_hash": null, "reason": "Qualité: 9 résiduels après refactor (commit 0e8eb2a). Helpers complémentaires en session future"},
+      {"rule_key": "py_too_many_nested_blocks", "file": "sca/dependencies.py", "code_hash": null, "reason": "Qualité: parser dépendances multi-format (pip, npm, gradle), complexité intrinsèque"},
+      {"rule_key": "py_too_many_nested_blocks", "file": "sca/rule_tester.py", "code_hash": null, "reason": "Qualité: testeur interne de règles, parcours fixtures multi-langages"},
+      {"rule_key": "py_too_many_nested_blocks", "file": "sca/taint_treesitter.py", "code_hash": null, "reason": "Qualité: 4 résiduels après refactor (commit 237158e). Clusters secondaires hors scope"},
+      {"rule_key": "py_too_many_nested_blocks", "file": "sca/database.py", "code_hash": null, "reason": "Qualité: parser SQL multi-dialectes"},
+      {"rule_key": "py_too_many_nested_blocks", "file": "sca/testing.py", "code_hash": null, "reason": "Qualité: orchestrateur tests, parcours arborescence fixtures"},
+      {"rule_key": "py_too_many_nested_blocks", "file": "sca/rule_loader.py", "code_hash": null, "reason": "Qualité: parser DSL .sca, validations imbriquées par mode/langage/catégorie"},
+      {"rule_key": "py_too_many_nested_blocks", "file": "sca/treesitter_engine.py", "code_hash": null, "reason": "Qualité: chargement dynamique grammaires tree-sitter"},
+      {"rule_key": "py_too_many_nested_blocks", "file": "sca/compliance.py", "code_hash": null, "reason": "Qualité: matrices ISO/ASVS/NIST, parcours mappings"},
+      {"rule_key": "file_too_long", "file": "sca/taint_treesitter.py", "code_hash": null, "reason": "Qualité: moteur taint AST tree-sitter multi-langages"},
+      {"rule_key": "file_too_long", "file": "sca/runner.py", "code_hash": null, "reason": "Qualité: orchestrateur central avec mixin pattern"},
+      {"rule_key": "file_too_long", "file": "sca/cicd.py", "code_hash": null, "reason": "Qualité: 18 règles CI/CD inline + parser YAML"},
+      {"rule_key": "file_too_long", "file": "sca/compliance.py", "code_hash": null, "reason": "Qualité: matrices ISO/ASVS/NIST volumineuses inline"},
+      {"rule_key": "file_too_long", "file": "sca/database.py", "code_hash": null, "reason": "Qualité: support multi-dialectes SQL (PostgreSQL, MySQL, MongoDB)"},
+      {"rule_key": "file_too_long", "file": "sca/rule_wizard.py", "code_hash": null, "reason": "Qualité: wizard interactif --create-rule (DSL complet)"},
+      {"rule_key": "file_too_long", "file": "sca/comparison.py", "code_hash": null, "reason": "Qualité: comparaison historique multi-runs avec diff sémantique"},
+      {"rule_key": "file_too_long", "file": "sca/taint_engine.py", "code_hash": null, "reason": "Qualité: moteur taint lexical multi-langages, source/sink/passthrough"},
+      {"rule_key": "file_too_long", "file": "sca/testing.py", "code_hash": null, "reason": "Qualité: orchestrateur tests + harnais fonctionnels"},
+      {"rule_key": "file_too_long", "file": "sca/dependencies.py", "code_hash": null, "reason": "Qualité: scan dépendances multi-format + intégration outils CVE"},
+      {"rule_key": "file_too_long", "file": "sca/dsl/parser.py", "code_hash": null, "reason": "Qualité: parser DSL .sca complet (lexer + AST + validations)"},
+      {"rule_key": "py_global_statement", "file": "sca/debug.py", "code_hash": null, "reason": "Pattern de logger global module-level légitime"},
+      {"rule_key": "py_global_statement", "file": "sca/license_check.py", "code_hash": null, "reason": "Cache module-level de la licence vérifiée légitime"},
+      {"rule_key": "py_global_statement", "file": "sca/i18n.py", "code_hash": null, "reason": "Cache module-level des traductions chargées légitime"},
+      {"rule_key": "py_magic_value_comparison", "file": "sca/ai/llm.py", "code_hash": null, "reason": "Constantes HTTP (status==200) dans appels Ollama"},
+      {"rule_key": "py_magic_value_comparison", "file": "sca/dsl/validator.py", "code_hash": null, "reason": "Constantes de validation DSL (longueur min/max id, version)"},
+      {"rule_key": "vulnerable_dependency", "file": "sca/treesitter_engine.py", "code_hash": null, "reason": "FP: commentaire '# tree-sitter >= 0.23' faussement matché comme déclaration de dépendance"},
+      {"rule_key": "vulnerable_dependency", "file": "sca/dependencies.py", "code_hash": null, "reason": "FP: fonction _cvss_to_severity (if score >= 9.0...) — comparaison numérique, pas une dépendance"},
+      {"rule_key": "path_traversal_python", "file": "sca/profile_loader.py", "code_hash": null, "reason": "FP: Path(project_path) — chemin du projet client à scanner, trust boundary auto"},
+      {"rule_key": "regex_injection", "file": "sca/rule_loader.py", "code_hash": null, "reason": "FP: re.compile(p['with']) etc — patterns issus des fichiers .sca builtin/custom du client, pas d'input externe"},
+      {"rule_key": "sql_injection_fstring", "file": "sca/ai/rule_generator.py", "code_hash": null, "reason": "FP: pattern 'text .execute(f\"' à l'intérieur d'un template de règle .sca (chaîne de texte)"},
+      {"rule_key": "weak_crypto", "file": "sca/ai/rule_generator.py", "code_hash": null, "reason": "FP: 'text hashlib.md5(' à l'intérieur d'un template de règle .sca"},
+      {"rule_key": "taint_path_traversal", "file": "sca/database.py", "code_hash": null, "reason": "FP: _write_password_to_env opère sur env_path interne (chemin .env du projet client, opération admin légitime)"},
+      {"rule_key": "taint_path_traversal", "file": "sca/ai/rule_generator.py", "code_hash": null, "reason": "FP: target_dir/rule_id.sca — target_dir interne wizard, rule_id validé en amont"},
+      {"rule_key": "py_missing_class_docstring", "file": "sca/dsl/nodes.py", "code_hash": null, "reason": "Qualité: dataclasses AST internes, docstrings ajouteraient du bruit"},
+      {"rule_key": "py_missing_class_docstring", "file": "sca/models.py", "code_hash": null, "reason": "Qualité: dataclasses Finding/TaintFlow internes, structure auto-documentée"},
+      {"rule_key": "py_missing_class_docstring", "file": "sca/dsl/lexer.py", "code_hash": null, "reason": "Qualité: dataclasses Token/Line internes"},
+      {"rule_key": "py_missing_class_docstring", "file": "sca/taint_engine.py", "code_hash": null, "reason": "Qualité: dataclasses _TaintInfo / _FunctionSummary internes"},
+      {"rule_key": "py_missing_class_docstring", "file": "sca/progress.py", "code_hash": null, "reason": "Qualité: classe interne d'affichage progression"},
+      {"rule_key": "py_missing_class_docstring", "file": "sca/taint_treesitter.py", "code_hash": null, "reason": "Qualité: dataclass _FuncSummary interne"},
+      {"rule_key": "py_missing_class_docstring", "file": "sca/treesitter_engine.py", "code_hash": null, "reason": "Qualité: classe interne TreeSitterManager"},
+      {"rule_key": "py_missing_class_docstring", "file": "sca/cicd.py", "code_hash": null, "reason": "Qualité: mixin interne AuditCICDMixin"},
+      {"rule_key": "py_missing_class_docstring", "file": "sca/compliance.py", "code_hash": null, "reason": "Qualité: mixin interne ComplianceMixin"},
+      {"rule_key": "py_missing_class_docstring", "file": "sca/file_cache.py", "code_hash": null, "reason": "Qualité: classe FileCache interne"},
+      {"rule_key": "py_missing_class_docstring", "file": "sca/database.py", "code_hash": null, "reason": "Qualité: mixin interne DatabaseMixin"},
+      {"rule_key": "py_missing_class_docstring", "file": "sca/rule_engine.py", "code_hash": null, "reason": "Qualité: mixin interne AuditRulesMixin"},
+      {"rule_key": "py_missing_class_docstring", "file": "sca/comparison.py", "code_hash": null, "reason": "Qualité: mixin interne ComparisonMixin"},
+      {"rule_key": "py_missing_class_docstring", "file": "sca/debug.py", "code_hash": null, "reason": "Qualité: utilitaire debug interne"},
+      {"rule_key": "py_missing_class_docstring", "file": "sca/testing.py", "code_hash": null, "reason": "Qualité: mixin interne TestingMixin"},
+      {"rule_key": "py_missing_class_docstring", "file": "sca/report.py", "code_hash": null, "reason": "Qualité: mixin interne ReportMixin"},
+      {"rule_key": "py_missing_class_docstring", "file": "sca/dependencies.py", "code_hash": null, "reason": "Qualité: mixin interne DependenciesMixin"},
+      {"rule_key": "py_missing_class_docstring", "file": "sca/dsl/parser.py", "code_hash": null, "reason": "Qualité: classe DSLParser interne"},
+      {"rule_key": "local_time_usage", "file": "sca/benchmark.py", "code_hash": null, "reason": "Qualité: timestamps locaux acceptables pour mesure de durée d'exécution"},
+      {"rule_key": "local_time_usage", "file": "sca/database.py", "code_hash": null, "reason": "Qualité: timestamps locaux pour log d'opérations DB internes"},
+      {"rule_key": "local_time_usage", "file": "sca/debug.py", "code_hash": null, "reason": "Qualité: timestamps debug locaux"},
+      {"rule_key": "local_time_usage", "file": "sca/projects.py", "code_hash": null, "reason": "Qualité: timestamps locaux de création projet"},
+      {"rule_key": "local_time_usage", "file": "sca/runner.py", "code_hash": null, "reason": "Qualité: timestamps locaux du rapport (fuseau utilisateur attendu)"},
+      {"rule_key": "local_time_usage", "file": "sca/comparison.py", "code_hash": null, "reason": "Qualité: timestamps locaux d'historique"},
+      {"rule_key": "local_time_usage", "file": "sca/progress.py", "code_hash": null, "reason": "Qualité: timestamps locaux de progression"},
+      {"rule_key": "unpinned_dependency", "file": "sca/ai/rule_generator.py", "code_hash": null, "reason": "FP: chaînes templates de règles .sca, pas un requirements.txt"},
+      {"rule_key": "parser_without_try", "file": "sca/dependencies.py", "code_hash": null, "reason": "FP: parsers de lockfiles avec gestion d'erreur dans la fonction appelante"},
+      {"rule_key": "parser_without_try", "file": "sca/config.py", "code_hash": null, "reason": "FP: chargement config (try/except au niveau supérieur)"},
+      {"rule_key": "parser_without_try", "file": "sca/ai/llm.py", "code_hash": null, "reason": "FP: json.loads dans bloc try/except urllib (déjà géré)"},
+      {"rule_key": "dynamic_import", "file": "sca/treesitter_engine.py", "code_hash": null, "reason": "FP: importlib pour chargement dynamique grammars tree-sitter (mécanisme légitime)"},
+      {"rule_key": "dynamic_import", "file": "sca/executors/hook.py", "code_hash": null, "reason": "FP: importlib pour exécuter les hooks Python custom (mécanisme légitime)"},
+      {"rule_key": "missing_security_docs", "file": "sca/encryption.py", "code_hash": null, "reason": "Qualité: chaque fonction crypto a déjà ses docstrings algo en module-level docstring"},
+      {"rule_key": "redos_vulnerable", "file": "sca/taint_engine.py", "code_hash": null, "reason": "FP: regex contrôlée par les fichiers .sca builtin/custom (trust boundary)"},
+      {"rule_key": "missing_csp_header", "file": "sca/ai/rule_generator.py", "code_hash": null, "reason": "FP: outil CLI, pas une web app (la règle vise les apps Flask/Django)"},
+      {"rule_key": "missing_hsts", "file": "sca/profile_loader.py", "code_hash": null, "reason": "FP: outil CLI, pas une web app"},
+      {"rule_key": "taint_log_injection", "file": "sca/config.py", "code_hash": null, "reason": "FP: log de chemin config, pas une entrée utilisateur HTTP"},
+      {"rule_key": "n_plus_1_query", "file": "sca/models.py", "code_hash": null, "reason": "FP: 'query' apparaît dans une chaîne de docstring/exemple, pas un appel ORM"},
+      {"rule_key": "pii_in_tests", "file": "sca/license_check.py", "code_hash": null, "reason": "FP: pattern email dans regex de validation licence, pas un test"},
+      {"rule_key": "taint_log_injection", "file": "sca/license_check.py", "code_hash": null, "reason": "FP: log de l'env var locale SCA_LICENSE_PATH (chemin fichier maîtrisé par l'utilisateur, pas un input HTTP)"},
+      {"rule_key": "parser_without_try", "file": "sca/license_footer.py", "code_hash": null, "reason": "FP: json.loads dans bloc try/except (lignes 77-87)"},
+      {"rule_key": "py_global_statement", "file": "sca/license_footer.py", "code_hash": null, "reason": "Cache module-level _FOOTER_REGISTERED pour idempotence atexit"},
+      {"rule_key": "hardcoded_tmp_path", "file": "sca/dataflow/cfg.py", "code_hash": null, "reason": "FP: '/tmp/cfg.dot' dans docstring d'exemple d'usage de to_dot(), pas du code exécuté"},
+      {"rule_key": "py_commented_out_code", "file": "sca/dataflow/cfg.py", "code_hash": null, "reason": "FP: commentaire descriptif sur méthode visitor AST ('raise potentiel ignoré en phase 1'), pas du code mort"},
+      {"rule_key": "file_too_long", "file": "sca/dataflow/cfg.py", "code_hash": null, "reason": "Qualité: builder CFG monolithique (visitor AST + 30+ types nodes), refactor Phase 9"},
+      {"rule_key": "file_too_long", "file": "sca/dataflow/transfer.py", "code_hash": null, "reason": "Qualité: transferts dataflow (eval_rhs + transfer_stmt + dataclasses lattice), refactor Phase 9"},
+      {"rule_key": "py_missing_class_docstring", "file": "sca/dataflow/transfer.py", "code_hash": null, "reason": "Qualité: dataclasses internes lattice (Bottom, Top, Tainted, etc.) auto-documentées"},
+      {"rule_key": "py_missing_class_docstring", "file": "sca/dataflow/bench.py", "code_hash": null, "reason": "Qualité: dataclasses BenchResult/BenchStats internes au bench"},
+      {"rule_key": "log_injection", "file": "sca/dataflow/bench.py", "code_hash": null, "reason": "FP: 'logger.info(ua)' à l'intérieur d'une chaîne SYNTHETIC_CORPUS (corpus de bench), pas du code exécuté"},
+      {"rule_key": "n_plus_1_query", "file": "sca/dataflow/bench.py", "code_hash": null, "reason": "FP: 'cursor.execute' dans chaînes de test SYNTHETIC_CORPUS (corpus de bench, pas SQL exécuté)"},
+      {"rule_key": "file_too_long", "file": "sca/parsers/python_to_ir.py", "code_hash": null, "reason": "Qualité: parser AST→IR Python complet (40+ types AST visités), refactor Phase 9"},
+      {"rule_key": "missing_data_retention", "file": "sca/parsers/python_to_ir.py", "code_hash": null, "reason": "FP: parser AST→IR purement fonctionnel, aucun stockage de données utilisateur"},
+      {"rule_key": "missing_data_retention", "file": "sca/dataflow/ir.py", "code_hash": null, "reason": "FP: dataclasses IR (Assign, CallRef, etc.), aucun stockage de données utilisateur"},
+      {"rule_key": "dynamic_import", "file": "sca/parsers/python_to_ir.py", "code_hash": null, "reason": "FP: '__import__' dans docstring de _lower_Import (modélisation IR), pas un appel dynamique réel"},
+      {"rule_key": "file_too_long", "file": "sca/projects.py", "code_hash": null, "reason": "Qualité: registre projets avec migration legacy UUID→slug + résolution rétrocompatible"},
+      {"rule_key": "llm_output_to_sink", "file": "sca/config.py", "code_hash": null, "reason": "FP profile-injection : le profil Flask ajoute logger.* comme sink à toutes les règles taint, dont llm_output_to_sink. La ligne logge en réalité une env var locale SCA_LOG_FILE, pas une sortie LLM."},
+      {"rule_key": "llm_output_to_sink", "file": "sca/license_check.py", "code_hash": null, "reason": "FP profile-injection : log d'une env var locale SCA_LICENSE_PATH, pas de sortie LLM impliquée."},
+      {"rule_key": "llm_output_to_sink", "file": "sca/license_footer.py", "code_hash": null, "reason": "FP profile-injection : footer ASCII en fin d'exécution affichant des constantes hardcodées."},
+      {"rule_key": "prompt_injection_llm", "file": "sca/config.py", "code_hash": null, "reason": "FP profile-injection : aucun appel LLM dans la config, juste un logger.info sur env var locale."},
+      {"rule_key": "prompt_injection_llm", "file": "sca/license_check.py", "code_hash": null, "reason": "FP profile-injection : vérif licence locale, aucun appel LLM impliqué."},
+      {"rule_key": "prompt_injection_llm", "file": "sca/license_footer.py", "code_hash": null, "reason": "FP profile-injection : footer ASCII en fin d'exécution, aucun appel LLM."},
+      {"rule_key": "taint_path_traversal", "file": "sca/config.py", "code_hash": null, "reason": "FP profile-injection : Path(config_path) opère sur env var SCA_CONFIG locale ou arg CLI, pas sur une entrée HTTP."},
+      {"rule_key": "taint_path_traversal", "file": "sca/license_check.py", "code_hash": null, "reason": "FP profile-injection : Path() opère sur l'env var SCA_LICENSE_PATH locale (utilisateur maîtrise sa licence), pas sur une entrée HTTP."},
+      {"rule_key": "taint_path_traversal", "file": "sca/license_footer.py", "code_hash": null, "reason": "FP profile-injection : Path() interne pour vérifier l'existence du fichier de licence, jamais d'input remote."},
+      {"rule_key": "py_too_many_nested_blocks", "file": "sca/parsers/lexical_taint.py", "code_hash": null, "reason": "Qualité: pipeline lexical (state machine sources/sinks/sanitizers/propagation + guards multilangues), complexité intrinsèque acceptée."},
+      {"rule_key": "file_too_long", "file": "sca/dataflow/const_eval.py", "code_hash": null, "reason": "Qualité: évaluation de constantes pour le lattice taint (Phase 9), refactor Phase 9"},
+      {"rule_key": "missing_monitoring", "file": "sca/dataflow/summary.py", "code_hash": null, "reason": "FP: 'delete' matché dans _ROUTE_DECORATOR_ATTRS (frozenset de noms HTTP) et '@router.'/'@app.get' dans un docstring d'exemple — module d'analyse statique, pas un endpoint web réel"}
+    ]
+  },
+  "tests": {
+    "enabled": true,
+    "tests_dir": "tests/",
+    "command": ".venv/bin/python -m pytest {tests_dir} -v --tb=short"
+  },
+  "fixtures": {
+    "include_generic": true,
+    "parallel": true,
+    "parallel_workers": 4,
+    "fixture_timeout": 30
+  },
+  "thresholds": {
+    "max_high": 0,
+    "max_medium": 10,
+    "min_health": 80,
+    "health_good": 90,
+    "health_warning": 70
+  },
+  "database": {
+    "enabled": false,
+    "env_file": ".env",
+    "env_vars": {
+      "host": "POSTGRES_HOST",
+      "port": "POSTGRES_PORT",
+      "database": "APP_DB_NAME",
+      "user": "APP_DB_USER",
+      "password": "APP_DB_PASSWORD"
+    },
+    "track": {
+      "tables": true,
+      "columns": true,
+      "constraints": true,
+      "indexes": true,
+      "enums": true
+    },
+    "severity": {
+      "column_dropped": "HIGH",
+      "table_dropped": "HIGH",
+      "type_changed": "MEDIUM",
+      "column_added": "LOW",
+      "index_added": "INFO"
+    },
+    "code_analysis": {
+      "enabled": true,
+      "escalate_severity": true
+    }
+  }
+}

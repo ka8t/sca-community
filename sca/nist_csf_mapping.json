@@ -1,0 +1,200 @@
+{
+  "_comment": "Mapping NIST Cybersecurity Framework 2.0 — regles SCA vers sous-categories CSF",
+  "standard": "NIST CSF",
+  "version": "2.0",
+  "release_date": "2024-02-26",
+  "total_subcategories": 106,
+  "functions": {
+    "GV": {
+      "name": "Govern",
+      "categories": 6
+    },
+    "ID": {
+      "name": "Identify",
+      "categories": 6
+    },
+    "PR": {
+      "name": "Protect",
+      "categories": 6
+    },
+    "DE": {
+      "name": "Detect",
+      "categories": 3
+    },
+    "RS": {
+      "name": "Respond",
+      "categories": 5
+    },
+    "RC": {
+      "name": "Recover",
+      "categories": 3
+    }
+  },
+  "subcategories": {
+    "PR.AA-01": {
+      "function": "PR",
+      "category": "Access Control",
+      "name": "Identities and credentials are managed"
+    },
+    "PR.AA-02": {
+      "function": "PR",
+      "category": "Access Control",
+      "name": "Identities are proofed and bound to credentials"
+    },
+    "PR.AA-03": {
+      "function": "PR",
+      "category": "Access Control",
+      "name": "Users, services, and hardware are authenticated"
+    },
+    "PR.AA-04": {
+      "function": "PR",
+      "category": "Access Control",
+      "name": "Identity assertions are protected, conveyed, and verified"
+    },
+    "PR.AA-05": {
+      "function": "PR",
+      "category": "Access Control",
+      "name": "Access permissions, entitlements, and authorizations are managed"
+    },
+    "PR.AT-01": {
+      "function": "PR",
+      "category": "Awareness and Training",
+      "name": "Personnel are provided awareness and training"
+    },
+    "PR.DS-01": {
+      "function": "PR",
+      "category": "Data Security",
+      "name": "Data-at-rest is protected"
+    },
+    "PR.DS-02": {
+      "function": "PR",
+      "category": "Data Security",
+      "name": "Data-in-transit is protected"
+    },
+    "PR.DS-10": {
+      "function": "PR",
+      "category": "Data Security",
+      "name": "Confidentiality, integrity, and availability of data are protected"
+    },
+    "PR.PS-01": {
+      "function": "PR",
+      "category": "Platform Security",
+      "name": "Configuration management practices are established"
+    },
+    "PR.PS-02": {
+      "function": "PR",
+      "category": "Platform Security",
+      "name": "Software is maintained, replaced, and removed"
+    },
+    "PR.PS-04": {
+      "function": "PR",
+      "category": "Platform Security",
+      "name": "Log records are generated and made available"
+    },
+    "PR.PS-05": {
+      "function": "PR",
+      "category": "Platform Security",
+      "name": "Installation and execution of unauthorized software is prevented"
+    },
+    "PR.PS-06": {
+      "function": "PR",
+      "category": "Platform Security",
+      "name": "Secure software development practices are used"
+    },
+    "PR.IR-01": {
+      "function": "PR",
+      "category": "Technology Infrastructure Resilience",
+      "name": "Networks and environments are protected"
+    },
+    "PR.IR-02": {
+      "function": "PR",
+      "category": "Technology Infrastructure Resilience",
+      "name": "Technology assets are managed to ensure availability"
+    },
+    "ID.AM-01": {
+      "function": "ID",
+      "category": "Asset Management",
+      "name": "Hardware assets are inventoried"
+    },
+    "ID.AM-02": {
+      "function": "ID",
+      "category": "Asset Management",
+      "name": "Software assets are inventoried"
+    },
+    "ID.RA-01": {
+      "function": "ID",
+      "category": "Risk Assessment",
+      "name": "Vulnerabilities in assets are identified, validated, and recorded"
+    },
+    "ID.RA-02": {
+      "function": "ID",
+      "category": "Risk Assessment",
+      "name": "Cyber threat intelligence is received from forums and sources"
+    },
+    "DE.CM-01": {
+      "function": "DE",
+      "category": "Continuous Monitoring",
+      "name": "Networks and network services are monitored"
+    },
+    "DE.CM-06": {
+      "function": "DE",
+      "category": "Continuous Monitoring",
+      "name": "External service provider activities are monitored"
+    },
+    "DE.CM-09": {
+      "function": "DE",
+      "category": "Continuous Monitoring",
+      "name": "Computing hardware and software are monitored"
+    },
+    "GV.SC-05": {
+      "function": "GV",
+      "category": "Supply Chain Risk Management",
+      "name": "Supply chain risk assessment is performed"
+    }
+  },
+  "mapping": {
+    "hardcoded_secret": [
+      "PR.AA-01",
+      "PR.DS-01"
+    ],
+    "weak_crypto": [
+      "PR.DS-01",
+      "PR.DS-02"
+    ],
+    "weak_random_python": [
+      "PR.DS-01"
+    ],
+    "weak_random_java": [
+      "PR.DS-01"
+    ],
+    "weak_random_php": [
+      "PR.DS-01"
+    ],
+    "weak_random_csharp": [
+      "PR.DS-01"
+    ],
+    "insecure_cookie": [
+      "PR.AA-04",
+      "PR.DS-02"
+    ],
+    "missing_mfa_python": [
+      "PR.AA-03"
+    ],
+    "missing_mfa_java": [
+      "PR.AA-03"
+    ],
+    "missing_mfa_javascript": [
+      "PR.AA-03"
+    ],
+    "missing_mfa_php": [
+      "PR.AA-03"
+    ],
+    "missing_mfa_csharp": [
+      "PR.AA-03"
+    ],
+    "unpinned_action_version": [
+      "GV.SC-05",
+      "PR.PS-02"
+    ]
+  }
+}

@@ -1,0 +1,36 @@
+rule missing_mfa_javascript
+  language  javascript
+  category  security
+  severity  MEDIUM
+  requires
+    has      (?:passport\.authenticate|\.authenticate\s*\(.*local|signInWithPassword)
+    not_has  (?:\.totp|\.otp|speakeasy|two.?factor|otplib|\.authenticator|enable_mfa|mfa_required)
+  end
+  metadata
+    cwe    CWE-308
+  end
+  risk
+    en: Authentication without multi-factor authentication exposes accounts to credential theft (CWE-308).
+    fr: Authentification sans double facteur expose les comptes au vol d'identifiants (CWE-308).
+    es: Autenticación sin factor doble expone las cuentas al robo de credenciales (CWE-308).
+    de: Authentifizierung ohne Multi-Faktor-Authentifizierung setzt Konten dem Diebstahl von Anmeldedaten aus (CWE-308).
+  end
+  solution
+    en: Integrate speakeasy or otplib for TOTP-based two-factor authentication.
+    fr: Intégrer speakeasy ou otplib pour l'authentification TOTP à deux facteurs.
+    es: Integrar speakeasy o otplib para autenticación TOTP de dos factores.
+    de: speakeasy oder otplib für TOTP-basierte Zwei-Faktor-Authentifizierung integrieren.
+  end
+  benefit
+    en: Reduces attack surface and strengthens application security.
+    fr: Reduit la surface d'attaque et renforce la securite de l'application.
+    es: Reduce la superficie de ataque y refuerza la seguridad de la aplicacion.
+    de: Reduziert die Angriffsflaeche und staerkt die Anwendungssicherheit.
+  end
+  fix_before
+    // Vulnerable pattern
+  end
+  fix_after
+    // Apply secure coding practices
+  end
+end

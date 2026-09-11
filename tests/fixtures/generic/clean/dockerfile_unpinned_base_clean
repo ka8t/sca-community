@@ -1,0 +1,5 @@
+# @audit-fixture
+# @rule: dockerfile_unpinned_base
+# @category: security
+# @expected: clean
+// Clean fixture — safe implementation

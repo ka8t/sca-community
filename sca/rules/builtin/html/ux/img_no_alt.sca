@@ -1,0 +1,36 @@
+rule img_no_alt
+  language  html
+  severity  MEDIUM
+  category  ux
+  match
+    pattern  <img\b(?![^>]*\balt\s*=)[^>]*>
+    scope    line
+  end
+  metadata
+    wcag    1.1.1
+  end
+  risk
+    en: Images without alternative text are inaccessible to screen readers and visually impaired users.
+    fr: Les images sans texte alternatif sont inaccessibles aux lecteurs d'écran et aux utilisateurs malvoyants.
+    es: Las imágenes sin texto alternativo son inaccesibles para lectores de pantalla y usuarios con discapacidad visual.
+    de: Bilder ohne Alternativtext sind für Screenreader und sehbehinderte Benutzer unzugänglich.
+  end
+  solution
+    en: Add a descriptive alt attribute on every <img> tag.
+    fr: Ajouter un attribut alt descriptif sur chaque balise <img>.
+    es: Añadir un atributo alt descriptivo en cada etiqueta <img>.
+    de: Ein beschreibendes alt-Attribut auf jedes <img>-Tag setzen.
+  end
+  benefit
+    en: Improves accessibility and user experience.
+    fr: Ameliore l'accessibilite et l'experience utilisateur.
+    es: Mejora la accesibilidad y la experiencia de usuario.
+    de: Verbessert die Barrierefreiheit und die Benutzererfahrung.
+  end
+  fix_before
+    <img src="photo.jpg">
+  end
+  fix_after
+    <img src="photo.jpg" alt="Team photo">
+  end
+end

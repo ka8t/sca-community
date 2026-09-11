@@ -1,0 +1,36 @@
+rule weak_crypto_csharp
+  language  csharp
+  category  security
+  severity  HIGH
+  match
+    pattern  (?:MD5\.Create|SHA1\.Create|DES\.Create|TripleDES\.Create|CipherMode\s*\.\s*ECB)
+    scope    line
+  end
+  metadata
+    cwe    CWE-327
+  end
+  risk
+    en: MD5, SHA1, DES, TripleDES and ECB mode are cryptographically broken.
+    fr: MD5, SHA1, DES, TripleDES et le mode ECB sont cryptographiquement cassés.
+    es: MD5, SHA1, DES, TripleDES y el modo ECB están criptográficamente rotos.
+    de: MD5, SHA1, DES, TripleDES und ECB-Modus sind kryptografisch gebrochen.
+  end
+  solution
+    en: Use SHA256, SHA512, or AES-GCM. For passwords, use BCrypt/Argon2/PBKDF2.
+    fr: Utiliser SHA256, SHA512 ou AES-GCM. Pour les mots de passe, utiliser BCrypt/Argon2/PBKDF2.
+    es: Usar SHA256, SHA512 o AES-GCM. Para contraseñas, usar BCrypt/Argon2/PBKDF2.
+    de: SHA256, SHA512 oder AES-GCM verwenden. Für Passwörter BCrypt/Argon2/PBKDF2 verwenden.
+  end
+  benefit
+    en: Reduces attack surface and strengthens application security.
+    fr: Reduit la surface d'attaque et renforce la securite de l'application.
+    es: Reduce la superficie de ataque y refuerza la seguridad de la aplicacion.
+    de: Reduziert die Angriffsflaeche und staerkt die Anwendungssicherheit.
+  end
+  fix_before
+    var hash = MD5.Create().ComputeHash(data);
+  end
+  fix_after
+    var hash = SHA256.Create().ComputeHash(data);
+  end
+end

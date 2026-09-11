@@ -1,0 +1,37 @@
+rule missing_sri
+  language  html
+  category  security
+  severity  LOW
+  match
+    pattern  <script\s+[^>]*src\s*=\s*[\"'](?:https?:)?//
+    pattern-not  integrity\s*=
+    scope    context-3
+  end
+  metadata
+    cwe    CWE-353
+  end
+  risk
+    en: External scripts or stylesheets loaded without integrity attribute can be tampered with if the CDN is compromised (CWE-353).
+    fr: Scripts ou feuilles de style externes chargés sans attribut integrity peuvent être altérés si le CDN est compromis (CWE-353).
+    es: Scripts o hojas de estilo externas cargadas sin atributo integrity pueden ser alterados si el CDN está comprometido (CWE-353).
+    de: Externe Skripte oder Stylesheets ohne integrity-Attribut geladen können manipuliert werden, wenn das CDN kompromittiert ist (CWE-353).
+  end
+  solution
+    en: Add integrity attribute with SHA-256/384/512 hash and crossorigin='anonymous' to external script and link tags.
+    fr: Ajouter l'attribut integrity avec un hash SHA-256/384/512 et crossorigin='anonymous' aux balises script et link externes.
+    es: Agregar el atributo integrity con hash SHA-256/384/512 y crossorigin='anonymous' a las etiquetas script y link externas.
+    de: integrity-Attribut mit SHA-256/384/512-Hash und crossorigin='anonymous' zu externen script- und link-Tags hinzufügen.
+  end
+  benefit
+    en: Reduces attack surface and strengthens application security.
+    fr: Reduit la surface d'attaque et renforce la securite de l'application.
+    es: Reduce la superficie de ataque y refuerza la seguridad de la aplicacion.
+    de: Reduziert die Angriffsflaeche und staerkt die Anwendungssicherheit.
+  end
+  fix_before
+    <script src="https://cdn.example.com/lib.js"></script>
+  end
+  fix_after
+    <script src="https://cdn.example.com/lib.js" integrity="sha384-..." crossorigin="anonymous"></script>
+  end
+end

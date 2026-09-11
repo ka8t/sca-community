@@ -1,0 +1,36 @@
+rule missing_mfa_csharp
+  language  csharp
+  category  security
+  severity  MEDIUM
+  requires
+    has      (?:PasswordSignInAsync|SignInManager|\.SignInAsync\s*\()
+    not_has  (?:\.totp|\.otp|verify_otp|verify_totp|TwoFactor|GenerateNewAuthenticatorKey|MfaService|enable_mfa)
+  end
+  metadata
+    cwe    CWE-308
+  end
+  risk
+    en: Authentication without multi-factor authentication exposes accounts to credential theft (CWE-308).
+    fr: Authentification sans double facteur expose les comptes au vol d'identifiants (CWE-308).
+    es: Autenticación sin factor doble expone las cuentas al robo de credenciales (CWE-308).
+    de: Authentifizierung ohne Multi-Faktor-Authentifizierung setzt Konten dem Diebstahl von Anmeldedaten aus (CWE-308).
+  end
+  solution
+    en: Enable ASP.NET Identity TwoFactorSignInAsync or integrate a TOTP library.
+    fr: Activer TwoFactorSignInAsync d'ASP.NET Identity ou intégrer une bibliothèque TOTP.
+    es: Activar TwoFactorSignInAsync de ASP.NET Identity o integrar una biblioteca TOTP.
+    de: ASP.NET Identity TwoFactorSignInAsync aktivieren oder eine TOTP-Bibliothek integrieren.
+  end
+  benefit
+    en: Reduces attack surface and strengthens application security.
+    fr: Reduit la surface d'attaque et renforce la securite de l'application.
+    es: Reduce la superficie de ataque y refuerza la seguridad de la aplicacion.
+    de: Reduziert die Angriffsflaeche und staerkt die Anwendungssicherheit.
+  end
+  fix_before
+    if (password == stored) Grant();
+  end
+  fix_after
+    if (password == stored && VerifyTotp(code)) Grant();
+  end
+end

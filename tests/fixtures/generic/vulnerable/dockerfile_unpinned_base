@@ -1,0 +1,8 @@
+# @audit-fixture
+# @rule: dockerfile_unpinned_base
+# @category: security
+# @expected: detected
+FROM python
+RUN pip install flask
+COPY src/ ./src/
+CMD ["python", "src/app.py"]
