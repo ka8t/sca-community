@@ -111,6 +111,7 @@ a worked example, end to end.
 
 ## Documentation
 
+- [RULES.md](RULES.md) — every rule shipped here, with its description and CWE/WCAG mapping.
 - [ARCHITECTURE.md](ARCHITECTURE.md) — pipeline, taint engine internals.
 - [USER-GUIDE.md](USER-GUIDE.md) — `.sca` rule format, public API.
 - [ROADMAP.md](ROADMAP.md) — what's commercial-only, and why.
